@@ -19,14 +19,22 @@ public class TesteAreaDAO {
         Integer id;
         try(Connection con = DataBase.connection()){
             AreaDAO dao = new AreaDAO(con);
-            //id = dao.create(area);
+            id = dao.create(area);
             
-            List<Areas> areasList = dao.findById(1);
-            Areas areaParaMostrar = areasList.get(0);
-            System.out.println("Area pesquisada: " + areaParaMostrar.getName());
+            Areas aCreate = dao.findById(id);
+            System.out.println("Area pesquisada: " + aCreate.getName());
             
-            boolean deletou = dao.delete(1);
-            System.out.println("Deletou? " + deletou);
+            //boolean deletou = dao.delete(1);
+            //System.out.println("Deletou? " + deletou);
+            Areas area2 = new Areas();
+            area2.setId(2);
+            area2.setName("Saude");
+            System.out.println("Deu certo? " + dao.update(area2));
+            
+            List<Areas> areas = dao.findAll();
+            for(Areas areaFA : areas){
+                System.out.println("Id = " + areaFA.getId() + " Nome = " + areaFA.getName());
+            }
         }
     }    
 }

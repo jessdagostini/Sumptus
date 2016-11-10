@@ -41,6 +41,24 @@ public class AreaDAO {
         return idCriado;
     }
     
+    public boolean update(Areas area) throws SQLException{
+        String sql = "UPDATE areas SET area = ? WHERE id = ?";
+        
+        try(PreparedStatement stm = con.prepareStatement(sql)){
+            stm.setString(1, area.getName());
+            stm.setInt(2, area.getId());
+            stm.execute();
+            
+            con.commit();           
+            
+            return true;
+        } catch(Exception ex){
+            System.out.println("Erro ao tentar executar autalização de dados: " + ex.getMessage());
+            con.rollback();
+        }
+        return false;
+    }
+    
     public List<Areas> findByName(String nome) throws SQLException{
         String sql = "SELECT * FROM areas WHERE area = (?)";
         List<Areas> areas = new ArrayList<>();
@@ -62,13 +80,12 @@ public class AreaDAO {
         return areas;
     }
     
-    public List<Areas> findById(Integer id) throws SQLException{
-        String sql = "SELECT * FROM areas WHERE id = (?)";
+    public List<Areas> findAll() throws SQLException{
+        String sql = "SELECT * FROM areas";
         List<Areas> areas = new ArrayList<>();
         Areas area = null;
         
         try(PreparedStatement stm = con.prepareStatement(sql)){
-            stm.setInt(1, id);
             stm.execute();
             
             try(ResultSet resultSet = stm.getResultSet()){
@@ -81,6 +98,25 @@ public class AreaDAO {
             }
         }
         return areas;
+    }
+    
+    public Areas findById(Integer id) throws SQLException{
+        String sql = "SELECT * FROM areas WHERE id = (?)";
+        Areas area = null;
+        
+        try(PreparedStatement stm = con.prepareStatement(sql)){
+            stm.setInt(1, id);
+            stm.execute();
+            
+            try(ResultSet resultSet = stm.getResultSet()){
+                while(resultSet.next()){
+                    area = new Areas();
+                    area.setId(resultSet.getInt("id"));
+                    area.setName(resultSet.getString("area"));
+                }
+            }
+        }
+        return area;
     }
     
     public boolean delete(Integer id) throws SQLException{
