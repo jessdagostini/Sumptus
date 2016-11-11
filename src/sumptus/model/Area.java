@@ -4,7 +4,7 @@ package sumptus.model;
  *
  * @author Jessica Dagostini
  */
-public class Areas {
+public class Area {
     private Integer id;
     private String name;
 

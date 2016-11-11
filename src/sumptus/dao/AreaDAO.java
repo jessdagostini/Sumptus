@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import sumptus.model.Areas;
+import sumptus.model.Area;
 
 /**
  *
@@ -20,7 +20,7 @@ public class AreaDAO {
         this.con = con;
     }
     
-    public Integer create(Areas area) throws SQLException{
+    public Integer create(Area area) throws SQLException{
         String sql = "INSERT INTO areas(area) VALUES(?)";
         Integer idCriado = 0;
         try (PreparedStatement stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -41,7 +41,7 @@ public class AreaDAO {
         return idCriado;
     }
     
-    public boolean update(Areas area) throws SQLException{
+    public boolean update(Area area) throws SQLException{
         String sql = "UPDATE areas SET area = ? WHERE id = ?";
         
         try(PreparedStatement stm = con.prepareStatement(sql)){
@@ -59,10 +59,10 @@ public class AreaDAO {
         return false;
     }
     
-    public List<Areas> findByName(String nome) throws SQLException{
+    public List<Area> findByName(String nome) throws SQLException{
         String sql = "SELECT * FROM areas WHERE area = (?)";
-        List<Areas> areas = new ArrayList<>();
-        Areas area = null;
+        List<Area> areas = new ArrayList<>();
+        Area area = null;
         
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setString(1, nome);
@@ -70,7 +70,7 @@ public class AreaDAO {
             
             try(ResultSet resultSet = stm.getResultSet()){
                 while(resultSet.next()){
-                    area = new Areas();
+                    area = new Area();
                     area.setId(resultSet.getInt("id"));
                     area.setName(resultSet.getString("area"));
                     areas.add(area);
@@ -80,17 +80,17 @@ public class AreaDAO {
         return areas;
     }
     
-    public List<Areas> findAll() throws SQLException{
+    public List<Area> findAll() throws SQLException{
         String sql = "SELECT * FROM areas";
-        List<Areas> areas = new ArrayList<>();
-        Areas area = null;
+        List<Area> areas = new ArrayList<>();
+        Area area = null;
         
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.execute();
             
             try(ResultSet resultSet = stm.getResultSet()){
                 while(resultSet.next()){
-                    area = new Areas();
+                    area = new Area();
                     area.setId(resultSet.getInt("id"));
                     area.setName(resultSet.getString("area"));
                     areas.add(area);
@@ -100,9 +100,9 @@ public class AreaDAO {
         return areas;
     }
     
-    public Areas findById(Integer id) throws SQLException{
+    public Area findById(Integer id) throws SQLException{
         String sql = "SELECT * FROM areas WHERE id = (?)";
-        Areas area = null;
+        Area area = null;
         
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setInt(1, id);
@@ -110,7 +110,7 @@ public class AreaDAO {
             
             try(ResultSet resultSet = stm.getResultSet()){
                 while(resultSet.next()){
-                    area = new Areas();
+                    area = new Area();
                     area.setId(resultSet.getInt("id"));
                     area.setName(resultSet.getString("area"));
                 }
@@ -121,7 +121,7 @@ public class AreaDAO {
     
     public boolean delete(Integer id) throws SQLException{
         String sql = "DELETE FROM areas WHERE id = (?)";
-        Areas area = null;
+        Area area = null;
         
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setInt(1, id);
