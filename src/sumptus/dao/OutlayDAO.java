@@ -74,7 +74,7 @@ public class OutlayDAO {
                     outlay.setPform(pformDAO.findById(resultSet.getInt("payform_id")));
                     outlay.setUser(userDAO.findById(resultSet.getInt("user_id")));
                     outlay.setDescription(resultSet.getString("description"));
-                    outlay.setPurchase_date(resultSet.getTimestamp("puchase_date"));
+                    outlay.setPurchase_date(resultSet.getTimestamp("purchase_date"));
                     outlay.setPayment_day(resultSet.getTimestamp("payment_day"));
                 }
             }
@@ -101,7 +101,7 @@ public class OutlayDAO {
                     outlay.setPform(pformDAO.findById(resultSet.getInt("payform_id")));
                     outlay.setUser(userDAO.findById(resultSet.getInt("user_id")));
                     outlay.setDescription(resultSet.getString("description"));
-                    outlay.setPurchase_date(resultSet.getTimestamp("puchase_date"));
+                    outlay.setPurchase_date(resultSet.getTimestamp("purchase_date"));
                     outlay.setPayment_day(resultSet.getTimestamp("payment_day"));
                     outlays.add(outlay);
                 }
@@ -111,5 +111,42 @@ public class OutlayDAO {
         }
 
         return outlays;
+    }
+    
+    public boolean update(Outlay outlay) throws SQLException{
+        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, payment_day = ?, purchase_date = ? WHERE id = ?";
+        try(PreparedStatement stm = con.prepareStatement(sql)){
+            stm.setInt(1, outlay.getArea().getId());
+            stm.setInt(2, outlay.getPform().getId());
+            stm.setString(3, outlay.getDescription());
+            stm.setTimestamp(4, outlay.getPayment_day());
+            stm.setTimestamp(5, outlay.getPurchase_date());
+            stm.setInt(6, outlay.getId());
+            stm.execute();
+            
+            con.commit();
+            return true;
+        } catch (Exception ex){
+            System.out.println("Erro ao atualizar = " + ex.getMessage());
+            
+            con.rollback();
+            return false;
+        }
+    }
+    
+    public boolean delete(Integer id) throws SQLException{
+        String sql = "DELETE FROM outlays WHERE id = ?";
+        try(PreparedStatement stm = con.prepareStatement(sql)){
+            stm.setInt(1, id);
+            stm.execute();
+            
+            con.commit();
+            return true;
+        } catch (Exception ex){
+            System.out.println("Deu ruim pra exclui " + ex.getMessage());
+            con.rollback();
+            
+            return false;
+        }        
     }
 }

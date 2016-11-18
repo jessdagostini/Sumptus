@@ -39,6 +39,13 @@ public class TesteOutlayDAO {
              id = DAO.create(out);
              System.out.println("Outlay criado - Id: " + id);
              
+             out = DAO.findById(2);
+             out.setPform(new PayFormDAO(con).findById(4));
+             boolean salvou;
+             salvou = DAO.update(out);
+             System.out.println("Salvou? " + salvou);
+             
+             DAO.delete(4);
              
          }
      }
