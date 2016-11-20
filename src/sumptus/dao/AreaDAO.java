@@ -81,7 +81,7 @@ public class AreaDAO {
     }
     
     public List<Area> findAll() throws SQLException{
-        String sql = "SELECT * FROM areas";
+        String sql = "SELECT * FROM areas ORDER BY id ASC";
         List<Area> areas = new ArrayList<>();
         Area area = null;
         
@@ -119,7 +119,7 @@ public class AreaDAO {
         return area;
     }
     
-    public boolean delete(Integer id) throws SQLException{
+    public String delete(Integer id) throws SQLException{
         String sql = "DELETE FROM areas WHERE id = (?)";
         Area area = null;
         
@@ -128,11 +128,10 @@ public class AreaDAO {
             stm.executeUpdate();
             
             con.commit();
-            return true;
-        } catch (Exception ex){
-            System.out.println("Erro ao tentar excluir: " + ex.getMessage());
+            return "Deletado com sucesso!";
+        } catch (Exception ex){            
             con.rollback();
-            return false;
+            return ("Erro ao tentar excluir: " + ex.getMessage());
         }
     }
 }

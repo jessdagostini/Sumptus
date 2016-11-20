@@ -43,7 +43,7 @@ public class PayFormDAO {
         }
     }
     
-    public boolean update(PayForm form) throws SQLException{
+    public String update(PayForm form) throws SQLException{
         String sql = "UPDATE payforms SET form = ? WHERE id = ?";
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setString(1, form.getForm());
@@ -51,10 +51,9 @@ public class PayFormDAO {
             stm.execute();
             
             con.commit();
-            return true;
+            return "Forma de Pagamento Atualizada";
         } catch(Exception ex){
-            System.out.println("Não foi possível atualizar " + ex.getMessage());
-            return false;
+            return ("Não foi possível atualizar " + ex.getMessage());
         }
     }
     
@@ -121,7 +120,7 @@ public class PayFormDAO {
         return pforms;
     }
     
-    public boolean delete(Integer id) throws SQLException{
+    public String delete(Integer id) throws SQLException{
         String sql = "DELETE FROM payforms WHERE id = (?)";
         PayForm pform = null;
         
@@ -130,11 +129,10 @@ public class PayFormDAO {
             stm.executeUpdate();
             
             con.commit();
-            return true;
+            return "Deletado com Sucesso!";
         } catch (Exception ex){
-            System.out.println("Erro ao tentar excluir: " + ex.getMessage());
             con.rollback();
-            return false;
+            return ("Erro ao tentar excluir: " + ex.getMessage());
         }
     }
 }

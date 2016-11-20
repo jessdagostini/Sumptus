@@ -24,7 +24,7 @@ public class TestesPayFormDAO {
             PayForm payfo = payDAO.findById(id);
             System.out.println("Forma = " + payfo.getForm());
             payfo.setForm("Cartão");
-            boolean saida = payDAO.update(payfo);
+            String saida = payDAO.update(payfo);
             System.out.println("Atualizou informação? " + saida);
             
             List<PayForm> pforms = payDAO.findByName("Cartão");
