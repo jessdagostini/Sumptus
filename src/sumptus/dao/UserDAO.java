@@ -24,14 +24,14 @@ public class UserDAO {
         this.con = con;
     }
     
-    public Integer create(User user) throws SQLException, NoSuchAlgorithmException{
+    public String create(User user) throws SQLException, NoSuchAlgorithmException{
         String sql = "INSERT INTO users(name, login, password, admin) VALUES(?, ?, ?, ?)";
         Integer id = 0;
     
         try(PreparedStatement stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             stm.setString(1, user.getName());
             stm.setString(2, user.getLogin());
-            stm.setString(3, convertPasswordToMD5(user.getPassword()));
+            stm.setString(3, user.getPassword());
             stm.setBoolean(4, user.getAdmin());
             stm.execute();
             
@@ -40,12 +40,11 @@ public class UserDAO {
                 while(rs.next()){
                     id = rs.getInt(1);
                 }
-                return id;
+                return "Usuário criado com sucesso!";
             }
         } catch(Exception ex){
-            System.out.println("Problemas ao criar o usuário " + ex.getMessage());
             con.rollback();
-            return 0;
+            return ("Problemas ao criar o usuário " + ex.getMessage());
         }
     }
     
@@ -54,7 +53,7 @@ public class UserDAO {
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setString(1, user.getName());
             stm.setString(2, user.getLogin());
-            stm.setString(3, convertPasswordToMD5(user.getPassword()));
+            stm.setString(3, user.getPassword());
             stm.setInt(4, user.getId());
             stm.execute();
             
@@ -135,6 +134,28 @@ public class UserDAO {
         return users;
     }
     
+    public User findByLogin(String login) throws SQLException{
+        String sql = "SELECT * FROM users WHERE login = ?";
+        User user = null;
+        
+        try(PreparedStatement stm = con.prepareStatement(sql)){
+            stm.setString(1, login);
+            stm.execute();
+            
+            try(ResultSet rs = stm.getResultSet()){
+                while(rs.next()){
+                    user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setName(rs.getString("name"));
+                    user.setLogin(rs.getString("login"));
+                    user.setPassword(rs.getString("password"));
+                    user.setAdmin(rs.getBoolean("admin"));
+                }
+            }
+        }
+        return user;
+    }
+    
     public boolean delete(Integer id) throws SQLException{
         String sql = "DELETE FROM users WHERE id = (?)";
         User user = null;
@@ -152,11 +173,11 @@ public class UserDAO {
         }
     }
  
-    public static String convertPasswordToMD5(String password) throws NoSuchAlgorithmException {
+    /*public static String convertPasswordToMD5(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         BigInteger hash;
         hash = new BigInteger(1, md.digest(password.getBytes()));
  
         return String.format("%32x", hash);
-    }
+    }*/
 }

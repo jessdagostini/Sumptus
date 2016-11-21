@@ -1,6 +1,5 @@
 package sumptus.dao;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -74,6 +73,7 @@ public class OutlayDAO {
                     outlay.setPform(pformDAO.findById(resultSet.getInt("payform_id")));
                     outlay.setUser(userDAO.findById(resultSet.getInt("user_id")));
                     outlay.setDescription(resultSet.getString("description"));
+                    outlay.setCost(resultSet.getBigDecimal("cost"));
                     outlay.setPurchase_date(resultSet.getTimestamp("purchase_date"));
                     outlay.setPayment_day(resultSet.getTimestamp("payment_day"));
                 }

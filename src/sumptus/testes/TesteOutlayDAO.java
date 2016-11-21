@@ -40,6 +40,7 @@ public class TesteOutlayDAO {
              System.out.println("Outlay criado - Id: " + id);
              
              out = DAO.findById(2);
+             System.out.println("Valor" + out.getCost());
              out.setPform(new PayFormDAO(con).findById(4));
              boolean salvou;
              salvou = DAO.update(out);

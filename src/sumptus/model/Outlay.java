@@ -58,8 +58,8 @@ public class Outlay {
         this.description = description;
     }
 
-    public BigDecimal getCost() {
-        return cost;
+    public String getCost() {
+        return cost.toPlainString();
     }
 
     public void setCost(BigDecimal cost) {
