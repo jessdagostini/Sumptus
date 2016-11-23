@@ -45,6 +45,7 @@ public class TesteOutlayDAO {
              boolean salvou;
              salvou = DAO.update(out);
              System.out.println("Salvou? " + salvou);
+             System.out.println(out.getCost());
              
              DAO.delete(4);
              

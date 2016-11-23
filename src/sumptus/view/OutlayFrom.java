@@ -10,9 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import sumptus.dao.AreaDAO;
 import sumptus.dao.DataBase;
 import sumptus.dao.OutlayDAO;
+import sumptus.dao.PayFormDAO;
+import sumptus.model.Area;
 import sumptus.model.Outlay;
+import sumptus.model.PayForm;
 
 /**
  *
@@ -23,6 +29,10 @@ public class OutlayFrom extends javax.swing.JFrame {
     private Outlay outlay;
     private OutlayDAO outlayDAO;
     private List<Outlay> outlays;
+    private List<Area> areas;
+    private List<PayForm> pforms;
+    private PayFormDAO pformDAO;
+    private AreaDAO areaDAO;
     private OutlayTableModel outlayTbModel;
 
     /**
@@ -32,13 +42,30 @@ public class OutlayFrom extends javax.swing.JFrame {
         initComponents();
         initialize();
     }
-    
-    public void initialize(){        
+
+    public void initialize() {
         try {
-            outlayDAO = new OutlayDAO(DataBase.connection());            
+            outlayDAO = new OutlayDAO(DataBase.connection());
             outlays = outlayDAO.findAll();
             outlayTbModel = new OutlayTableModel(outlays);
-            outlayTable.setModel(outlayTbModel);            
+            outlayTable.setModel(outlayTbModel);
+            showOutlay.setVisible(true);
+            addOutlay.setVisible(false);
+            
+            areaDAO = new AreaDAO(DataBase.connection());
+            areas = areaDAO.findAll();
+            for(Area area : areas){ 
+                System.out.println(area.getName());
+                selectArea.addItem(area.getName());
+            }
+            
+            pformDAO = new PayFormDAO(DataBase.connection());
+            pforms = pformDAO.findAll();
+            for(PayForm pform : pforms){ 
+                System.out.println(pform.getForm());
+                selectPayForm.addItem(pform.getForm());
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(OutlayFrom.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -53,10 +80,17 @@ public class OutlayFrom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        showOutlay = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         outlayTable = new javax.swing.JTable();
         createOutlay = new javax.swing.JButton();
+        addOutlay = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        selectArea = new javax.swing.JComboBox<>();
+        selectPayForm = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +105,11 @@ public class OutlayFrom extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        outlayTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                outlayTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(outlayTable);
 
         createOutlay.setText("Adicionar");
@@ -80,33 +119,98 @@ public class OutlayFrom extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout showOutlayLayout = new javax.swing.GroupLayout(showOutlay);
+        showOutlay.setLayout(showOutlayLayout);
+        showOutlayLayout.setHorizontalGroup(
+            showOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(showOutlayLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(createOutlay))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 33, Short.MAX_VALUE)
+        showOutlayLayout.setVerticalGroup(
+            showOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, showOutlayLayout.createSequentialGroup()
+                .addGap(0, 21, Short.MAX_VALUE)
                 .addComponent(createOutlay)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jLabel1.setText("jLabel1");
+
+        jLabel2.setText("jLabel2");
+
+        jLabel3.setText("jLabel3");
+
+        jLabel4.setText("jLabel4");
+
+        selectArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectAreaActionPerformed(evt);
+            }
+        });
+
+        selectPayForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectPayFormActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addOutlayLayout = new javax.swing.GroupLayout(addOutlay);
+        addOutlay.setLayout(addOutlayLayout);
+        addOutlayLayout.setHorizontalGroup(
+            addOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addOutlayLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(addOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(addOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(selectArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectPayForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(234, Short.MAX_VALUE))
+        );
+        addOutlayLayout.setVerticalGroup(
+            addOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addOutlayLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(addOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(selectArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(addOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(selectPayForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(showOutlay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(addOutlay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(showOutlay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(addOutlay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -114,7 +218,56 @@ public class OutlayFrom extends javax.swing.JFrame {
 
     private void createOutlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createOutlayActionPerformed
         // TODO add your handling code here:
+        showOutlay.setVisible(false);
+        addOutlay.setVisible(true);
     }//GEN-LAST:event_createOutlayActionPerformed
+
+    private void outlayTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_outlayTableMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            int row = outlayTable.rowAtPoint(evt.getPoint());
+            int col = outlayTable.columnAtPoint(evt.getPoint());
+            if (col == 6) {
+                outlay = outlays.get(outlayTable.getSelectedRow());
+                if (outlay.getPaid() == "-" && JOptionPane.showConfirmDialog(rootPane, "Você deseja marcar este dado como pago?") == 0) {
+                    outlay.setPaid(true);
+                    try {
+                        String saida = outlayDAO.update(outlay);
+                        JOptionPane.showMessageDialog(rootPane, saida);
+                        refresh();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(OutlayFrom.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }else {
+                
+            }
+        }
+    }//GEN-LAST:event_outlayTableMouseClicked
+
+    private void selectAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAreaActionPerformed
+        System.out.println("Area selecionada " + evt.toString());
+    }//GEN-LAST:event_selectAreaActionPerformed
+
+    private void selectPayFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPayFormActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectPayFormActionPerformed
+
+    private void refresh() {
+        try {
+            outlayDAO = new OutlayDAO(DataBase.connection());
+            outlays = outlayDAO.findAll();
+            outlayTbModel = new OutlayTableModel(outlays);
+            outlayTable.setModel(outlayTbModel);
+            areas = areaDAO.findAll();
+            for(Area area : areas){ 
+                System.out.println(area.getName());
+                selectArea.addItem(area.getName());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OutlayFrom.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -152,9 +305,16 @@ public class OutlayFrom extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel addOutlay;
     private javax.swing.JButton createOutlay;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable outlayTable;
+    private javax.swing.JComboBox<String> selectArea;
+    private javax.swing.JComboBox<String> selectPayForm;
+    private javax.swing.JPanel showOutlay;
     // End of variables declaration//GEN-END:variables
 }

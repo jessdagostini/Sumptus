@@ -86,7 +86,7 @@ public class OutlayDAO {
     }
     
     public List<Outlay> findAll() throws SQLException {
-        String sql = "SELECT * FROM outlays";
+        String sql = "SELECT * FROM outlays ORDER BY id ASC";
         List<Outlay> outlays = new ArrayList<>();
         Outlay outlay = null;
         
@@ -101,8 +101,10 @@ public class OutlayDAO {
                     outlay.setPform(pformDAO.findById(resultSet.getInt("payform_id")));
                     outlay.setUser(userDAO.findById(resultSet.getInt("user_id")));
                     outlay.setDescription(resultSet.getString("description"));
+                    outlay.setCost(resultSet.getBigDecimal("cost"));
                     outlay.setPurchase_date(resultSet.getTimestamp("purchase_date"));
                     outlay.setPayment_day(resultSet.getTimestamp("payment_day"));
+                    outlay.setPaid(resultSet.getBoolean("paid"));
                     outlays.add(outlay);
                 }
             }
@@ -113,24 +115,23 @@ public class OutlayDAO {
         return outlays;
     }
     
-    public boolean update(Outlay outlay) throws SQLException{
-        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, payment_day = ?, purchase_date = ? WHERE id = ?";
+    public String update(Outlay outlay) throws SQLException{
+        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, payment_day = ?, purchase_date = ?, paid = ? WHERE id = ?";
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setInt(1, outlay.getArea().getId());
             stm.setInt(2, outlay.getPform().getId());
             stm.setString(3, outlay.getDescription());
             stm.setTimestamp(4, outlay.getPayment_day());
-            stm.setTimestamp(5, outlay.getPurchase_date());
-            stm.setInt(6, outlay.getId());
+            stm.setTimestamp(5, outlay.getPurchase_date());            
+            stm.setBoolean(6, outlay.savePaid());
+            stm.setInt(7, outlay.getId());
             stm.execute();
             
             con.commit();
-            return true;
+            return "Dado atualizado com sucesso!";
         } catch (Exception ex){
-            System.out.println("Erro ao atualizar = " + ex.getMessage());
-            
             con.rollback();
-            return false;
+            return("Erro ao atualizar = " + ex.getMessage());
         }
     }
     

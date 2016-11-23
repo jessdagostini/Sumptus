@@ -58,8 +58,8 @@ public class Outlay {
         this.description = description;
     }
 
-    public String getCost() {
-        return cost.toPlainString();
+    public BigDecimal getCost() {
+        return cost;
     }
 
     public void setCost(BigDecimal cost) {
@@ -82,7 +82,15 @@ public class Outlay {
         this.payment_day = payment_day;
     }
 
-    public Boolean getPaid() {
+    public String getPaid() {
+        if(paid == true){
+            return "Pago";
+        } else {
+            return "-";
+        }
+    }
+    
+    public Boolean savePaid(){
         return paid;
     }
 

@@ -46,7 +46,7 @@ public class OutlayTableModel  extends AbstractTableModel{
             case 2: return outlay.getDescription();
             case 3: return outlay.getPurchase_date();
             case 4: return outlay.getPayment_day();
-            case 5: System.out.println(outlay.getCost()); return outlay.getCost();
+            case 5: return outlay.getCost();
             case 6: return outlay.getPaid();
             default:
                 throw new AssertionError();
