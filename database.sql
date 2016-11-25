@@ -47,7 +47,7 @@ CREATE TABLE outlays
   description text,
   area_id integer NOT NULL,
   cost numeric,
-  purchase_date timestamp without time zone,
+  purchase_date date,
   payment_day timestamp without time zone,
   paid boolean DEFAULT false,
   CONSTRAINT outlays_pkey PRIMARY KEY (id),
