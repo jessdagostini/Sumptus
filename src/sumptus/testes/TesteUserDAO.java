@@ -25,7 +25,7 @@ public class TesteUserDAO {
             user.setPassword("348555");
             user.setAdmin(true);
             
-            Integer id;
+            String id;
             id = userDAO.create(user);
             System.out.println("Criou usuário = " + id);
             

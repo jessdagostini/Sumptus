@@ -24,7 +24,7 @@ public class TesteOutlayDAO {
              
              OutlayDAO DAO = new OutlayDAO(con);
              Outlay out = new Outlay();
-             Area area = new AreaDAO(con).findById(2);
+             Area area = new AreaDAO(con).findById(1);
              PayForm pform = new PayFormDAO(con).findById(2);
              User user = new UserDAO(con).findById(1);
              
@@ -39,10 +39,10 @@ public class TesteOutlayDAO {
              id = DAO.create(out);
              System.out.println("Outlay criado - Id: " + id);
              
-             out = DAO.findById(2);
-             System.out.println("Valor" + out.getCost());
+             out = DAO.findById(1);
+             System.out.println("Valor " + out.getCost());
              out.setPform(new PayFormDAO(con).findById(4));
-             boolean salvou;
+             String salvou;
              salvou = DAO.update(out);
              System.out.println("Salvou? " + salvou);
              System.out.println(out.getCost());

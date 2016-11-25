@@ -99,9 +99,8 @@ public class PayFormDAO {
         return pforms;
     }
     
-    public List<PayForm> findByName(String name) throws SQLException{
+    public PayForm findByName(String name) throws SQLException{
         String sql = "SELECT * FROM payforms WHERE form = ?";
-        List<PayForm> pforms = new ArrayList<>();
         PayForm pform = null;
         
         try(PreparedStatement stm = con.prepareStatement(sql)){
@@ -113,11 +112,10 @@ public class PayFormDAO {
                     pform = new PayForm();
                     pform.setId(resultSet.getInt("id"));
                     pform.setForm(resultSet.getString("form"));
-                    pforms.add(pform);
                 }
             }
         }
-        return pforms;
+        return pform;
     }
     
     public String delete(Integer id) throws SQLException{

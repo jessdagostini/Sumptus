@@ -59,9 +59,8 @@ public class AreaDAO {
         return false;
     }
     
-    public List<Area> findByName(String nome) throws SQLException{
+    public Area findByName(String nome) throws SQLException{
         String sql = "SELECT * FROM areas WHERE area = (?)";
-        List<Area> areas = new ArrayList<>();
         Area area = null;
         
         try(PreparedStatement stm = con.prepareStatement(sql)){
@@ -72,12 +71,10 @@ public class AreaDAO {
                 while(resultSet.next()){
                     area = new Area();
                     area.setId(resultSet.getInt("id"));
-                    area.setName(resultSet.getString("area"));
-                    areas.add(area);
-                }
+                    area.setName(resultSet.getString("area"));                }
             }
         }
-        return areas;
+        return area;
     }
     
     public List<Area> findAll() throws SQLException{

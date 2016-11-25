@@ -2,6 +2,7 @@ package sumptus.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
@@ -14,8 +15,8 @@ public class Outlay {
     private PayForm pform;
     private String description;
     private BigDecimal cost;
-    private Timestamp purchase_date;
-    private Timestamp payment_day;
+    private Date purchase_date;
+    private Date payment_day;
     private Boolean paid;
 
     public Integer getId() {
@@ -66,19 +67,19 @@ public class Outlay {
         this.cost = cost;
     }
 
-    public Timestamp getPurchase_date() {
+    public Date getPurchase_date() {
         return purchase_date;
     }
 
-    public void setPurchase_date(Timestamp purchase_date) {
+    public void setPurchase_date(Date purchase_date) {
         this.purchase_date = purchase_date;
     }
 
-    public Timestamp getPayment_day() {
+    public Date getPayment_day() {
         return payment_day;
     }
 
-    public void setPayment_day(Timestamp payment_day) {
+    public void setPayment_day(Date payment_day) {
         this.payment_day = payment_day;
     }
 

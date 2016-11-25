@@ -1,4 +1,4 @@
-package sumptus.view;
+package sumptus.oldView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

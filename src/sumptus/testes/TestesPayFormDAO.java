@@ -31,8 +31,8 @@ public class TestesPayFormDAO {
             for(PayForm pform : pforms){
                 System.out.println("Id = " + pform.getId() + " Forma = " + pform.getForm());
             }
-            saida = payDAO.delete(id);
-            System.out.println("Deletou? " + saida);
+           // saida = payDAO.delete(id);
+            //System.out.println("Deletou? " + saida);
         }catch(Exception ex){
             System.out.println("Deu ruim na conexão " + ex.getMessage());
         }        

@@ -14,6 +14,7 @@ import sumptus.dao.AreaDAO;
 import sumptus.dao.PayFormDAO;
 import sumptus.dao.UserDAO;
 import sumptus.model.Outlay;
+import sumptus.model.User;
 /**
  *
  * @author Jessica Dagostini
@@ -40,8 +41,10 @@ public class OutlayDAO {
             stm.setInt(3, outlay.getPform().getId());
             stm.setString(4, outlay.getDescription());
             stm.setBigDecimal(5, outlay.getCost());
-            stm.setTimestamp(6, outlay.getPurchase_date());
-            stm.setTimestamp(7, outlay.getPayment_day());
+            java.sql.Date dataPurchase = new java.sql.Date(outlay.getPurchase_date().getTime());
+            stm.setDate(6, dataPurchase);
+            java.sql.Date dataPayment = new java.sql.Date(outlay.getPayment_day().getTime());
+            stm.setDate(7, dataPayment);
             stm.execute();
 
             try (ResultSet resultSet = stm.getGeneratedKeys()) {
@@ -74,8 +77,8 @@ public class OutlayDAO {
                     outlay.setUser(userDAO.findById(resultSet.getInt("user_id")));
                     outlay.setDescription(resultSet.getString("description"));
                     outlay.setCost(resultSet.getBigDecimal("cost"));
-                    outlay.setPurchase_date(resultSet.getTimestamp("purchase_date"));
-                    outlay.setPayment_day(resultSet.getTimestamp("payment_day"));
+                    outlay.setPurchase_date(resultSet.getDate("purchase_date"));
+                    outlay.setPayment_day(resultSet.getDate("payment_day"));
                 }
             }
         } catch (Exception ex){
@@ -102,8 +105,39 @@ public class OutlayDAO {
                     outlay.setUser(userDAO.findById(resultSet.getInt("user_id")));
                     outlay.setDescription(resultSet.getString("description"));
                     outlay.setCost(resultSet.getBigDecimal("cost"));
-                    outlay.setPurchase_date(resultSet.getTimestamp("purchase_date"));
-                    outlay.setPayment_day(resultSet.getTimestamp("payment_day"));
+                    outlay.setPurchase_date(resultSet.getDate("purchase_date"));
+                    outlay.setPayment_day(resultSet.getDate("payment_day"));
+                    outlay.setPaid(resultSet.getBoolean("paid"));
+                    outlays.add(outlay);
+                }
+            }
+        } catch (Exception ex){
+            System.out.println("Não encontrou por ID " + ex.getMessage());
+        }
+
+        return outlays;
+    }
+    
+    public List<Outlay> findByUser(Integer user_id) throws SQLException {
+        String sql = "SELECT * FROM outlays WHERE user_id = ? ORDER BY id ASC";
+        List<Outlay> outlays = new ArrayList<>();
+        Outlay outlay = null;
+        
+        try(PreparedStatement stm = con.prepareStatement(sql)) {
+            stm.setInt(1, user_id);
+            stm.execute();
+
+            try(ResultSet resultSet = stm.getResultSet()) {
+                while(resultSet.next()) {
+                    outlay = new Outlay();
+                    outlay.setId(resultSet.getInt("id"));
+                    outlay.setArea(areaDAO.findById(resultSet.getInt("area_id")));
+                    outlay.setPform(pformDAO.findById(resultSet.getInt("payform_id")));
+                    outlay.setUser(userDAO.findById(resultSet.getInt("user_id")));
+                    outlay.setDescription(resultSet.getString("description"));
+                    outlay.setCost(resultSet.getBigDecimal("cost"));
+                    outlay.setPurchase_date(resultSet.getDate("purchase_date"));
+                    outlay.setPayment_day(resultSet.getDate("payment_day"));
                     outlay.setPaid(resultSet.getBoolean("paid"));
                     outlays.add(outlay);
                 }
@@ -121,8 +155,10 @@ public class OutlayDAO {
             stm.setInt(1, outlay.getArea().getId());
             stm.setInt(2, outlay.getPform().getId());
             stm.setString(3, outlay.getDescription());
-            stm.setTimestamp(4, outlay.getPayment_day());
-            stm.setTimestamp(5, outlay.getPurchase_date());            
+            java.sql.Date dataPurchase = new java.sql.Date(outlay.getPurchase_date().getTime());
+            stm.setDate(6, dataPurchase);
+            java.sql.Date dataPayment = new java.sql.Date(outlay.getPayment_day().getTime());
+            stm.setDate(7, dataPayment);            
             stm.setBoolean(6, outlay.savePaid());
             stm.setInt(7, outlay.getId());
             stm.execute();
