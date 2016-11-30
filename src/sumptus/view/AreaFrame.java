@@ -172,7 +172,7 @@ public class AreaFrame extends javax.swing.JFrame {
         });
         areaScrollPane.setViewportView(areasTable);
 
-        newAreaMenu.setText("Adicionar Área");
+        newAreaMenu.setText("Adicionar");
         newAreaMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 newAreaMenuMouseClicked(evt);
@@ -180,7 +180,7 @@ public class AreaFrame extends javax.swing.JFrame {
         });
         areaMenuBar.add(newAreaMenu);
 
-        editAreaMenu.setText("Editar Área");
+        editAreaMenu.setText("Editar");
         editAreaMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editAreaMenuMouseClicked(evt);
@@ -188,7 +188,7 @@ public class AreaFrame extends javax.swing.JFrame {
         });
         areaMenuBar.add(editAreaMenu);
 
-        deleteAreaMenu.setText("Deletar Área");
+        deleteAreaMenu.setText("Deletar");
         deleteAreaMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 deleteAreaMenuMouseClicked(evt);
@@ -209,7 +209,6 @@ public class AreaFrame extends javax.swing.JFrame {
             .addComponent(areaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
         );
 
-        getAccessibleContext().setAccessibleName("Áreas");
         getAccessibleContext().setAccessibleDescription("");
 
         pack();
@@ -218,7 +217,7 @@ public class AreaFrame extends javax.swing.JFrame {
     private void areasTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_areasTableMouseClicked
         // TODO add your handling code here:
         if(evt.getClickCount() == 2){
-            deleteArea();
+            editArea();
         } 
     }//GEN-LAST:event_areasTableMouseClicked
 
@@ -232,7 +231,7 @@ public class AreaFrame extends javax.swing.JFrame {
         System.out.println("Entrou MouseClickeds");
         String newArea = JOptionPane.showInputDialog("Digite a nova área");
         System.out.println(newArea);
-        if (newArea != null) {
+        if (newArea != "") {
             try {
                 AreaDAO DAO = new AreaDAO(DataBase.connection());
                 Area area = new Area();

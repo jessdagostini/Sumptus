@@ -1,4 +1,4 @@
-package sumptus.oldView;
+package sumptus.view;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;

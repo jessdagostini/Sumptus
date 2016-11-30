@@ -97,6 +97,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         areaMenu = new javax.swing.JMenu();
         listAllAreasMenuItem = new javax.swing.JMenuItem();
         pformMenu = new javax.swing.JMenu();
+        listAllPformsMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
 
         setOutlay.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -210,7 +211,6 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1080, 720));
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1080, 520));
 
@@ -265,7 +265,16 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
 
         menuBar.add(areaMenu);
 
-        pformMenu.setText("Pagamentos");
+        pformMenu.setText("Formas Pagamentos");
+
+        listAllPformsMenuItem.setText("Listar Todos");
+        listAllPformsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listAllPformsMenuItemActionPerformed(evt);
+            }
+        });
+        pformMenu.add(listAllPformsMenuItem);
+
         menuBar.add(pformMenu);
 
         userMenu.setText("Usuários");
@@ -355,6 +364,12 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_pformsComboBoxActionPerformed
 
+    private void listAllPformsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAllPformsMenuItemActionPerformed
+        // TODO add your handling code here:
+        PayFormFrame pforms = new PayFormFrame();
+        pforms.setVisible(true);
+    }//GEN-LAST:event_listAllPformsMenuItemActionPerformed
+
     private void manageOutlay() {
         try {
             areaDAO = new AreaDAO(DataBase.connection());
@@ -430,6 +445,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuItem listAllAreasMenuItem;
+    private javax.swing.JMenuItem listAllPformsMenuItem;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu outlayMenu;
     private javax.swing.JPanel outlaysPanel;

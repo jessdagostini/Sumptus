@@ -127,7 +127,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="newAreaMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Adicionar &#xc1;rea"/>
+            <Property name="text" type="java.lang.String" value="Adicionar"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="newAreaMenuMouseClicked"/>
@@ -135,7 +135,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="editAreaMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Editar &#xc1;rea"/>
+            <Property name="text" type="java.lang.String" value="Editar"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="editAreaMenuMouseClicked"/>
@@ -143,7 +143,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="deleteAreaMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Deletar &#xc1;rea"/>
+            <Property name="text" type="java.lang.String" value="Deletar"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="deleteAreaMenuMouseClicked"/>
@@ -160,7 +160,6 @@
     </Property>
   </Properties>
   <AccessibilityProperties>
-    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="&#xc1;reas"/>
     <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
   </AccessibilityProperties>
   <SyntheticProperties>

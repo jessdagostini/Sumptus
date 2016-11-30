@@ -27,10 +27,10 @@ public class TestesPayFormDAO {
             String saida = payDAO.update(payfo);
             System.out.println("Atualizou informação? " + saida);
             
-            List<PayForm> pforms = payDAO.findByName("Cartão");
-            for(PayForm pform : pforms){
+            //List<PayForm> pforms = payDAO.findByName("Cartão");
+             /*for(PayForm pform : pforms){
                 System.out.println("Id = " + pform.getId() + " Forma = " + pform.getForm());
-            }
+            }*/
            // saida = payDAO.delete(id);
             //System.out.println("Deletou? " + saida);
         }catch(Exception ex){
