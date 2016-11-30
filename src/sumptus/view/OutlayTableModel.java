@@ -2,7 +2,9 @@ package sumptus.view;
 
 import java.sql.SQLException;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
@@ -22,7 +24,7 @@ public class OutlayTableModel  extends AbstractTableModel{
         this.outlays = outlays;
     }
     
-    public void setAreas(List<Outlay> outlays){
+    public void setOutlays(List<Outlay> outlays){
         this.outlays = outlays;
     }
 
@@ -41,12 +43,13 @@ public class OutlayTableModel  extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Outlay outlay = outlays.get(rowIndex);
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, new Locale("pt", "BR"));
         switch (columnIndex) {
             case 0: return outlay.getArea().getName();
             case 1: return outlay.getPform().getForm();
             case 2: return outlay.getDescription();
-            case 3: return (Date) outlay.getPurchase_date();
-            case 4: return (Date) outlay.getPayment_day();
+            case 3: return dateFormat.format((Date) outlay.getPurchase_date());
+            case 4: return dateFormat.format((Date) outlay.getPayment_day());
             case 5: return outlay.getCost();
             case 6: return outlay.getPaid();
             default:

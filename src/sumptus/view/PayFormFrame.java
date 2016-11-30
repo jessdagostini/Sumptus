@@ -127,7 +127,11 @@ public class PayFormFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setSize(new java.awt.Dimension(1080, 720));
+        setTitle("Sumptus - Formas de Pagamento");
+        setMaximumSize(new java.awt.Dimension(800, 700));
+        setPreferredSize(new java.awt.Dimension(800, 700));
+        setResizable(false);
+        setSize(new java.awt.Dimension(800, 700));
 
         pformsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -195,27 +199,31 @@ public class PayFormFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_pformsTableMouseClicked
 
     private void newPformMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newPformMenuMouseClicked
-        // TODO add your handling code here:
-        String newPform = JOptionPane.showInputDialog("Digite a nova forma de pagamento");
-        try {
-            PayForm pform = new PayForm();
-            pform.setForm(newPform);
-            pformDAO.create(pform);
-            JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-            findPforms();
-        } catch (SQLException ex) {
-            Logger.getLogger(AreaFrame.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro ao gravar pessoa", "Erro", JOptionPane.ERROR);
+        String newPform = JOptionPane.showInputDialog(pformScrollPane,"Digite a nova forma", "Sumptus - Nova Forma Pagamento", JOptionPane.INFORMATION_MESSAGE);
+        if(newPform != null){
+            if (!newPform.trim().isEmpty()) {
+                try {
+                    PayForm pform = new PayForm();
+                    pform.setForm(newPform);
+                    pformDAO.create(pform);
+                    JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sumptus - Informação", JOptionPane.INFORMATION_MESSAGE);
+                    findPforms();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AreaFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Erro ao gravar pessoa", "Sumptus - Erro", JOptionPane.ERROR);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, preencha este campo", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+                newPformMenuMouseClicked(evt);
+            }
         }
     }//GEN-LAST:event_newPformMenuMouseClicked
 
     private void cancelPformButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelPformButtonActionPerformed
-        // TODO add your handling code here:
         editPformDialog.dispose();
     }//GEN-LAST:event_cancelPformButtonActionPerformed
 
     private void savePformButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePformButtonActionPerformed
-        // TODO add your handling code here:
         pform.setId(Integer.parseInt(editIdPform.getText()));
         pform.setForm(editNamePform.getText());
         try {
@@ -240,7 +248,7 @@ public class PayFormFrame extends javax.swing.JFrame {
     private void editPform(){
         Integer areaSelec = pformsTable.getSelectedRow();        
         if(areaSelec == -1){
-            JOptionPane.showMessageDialog(rootPane, "Por favor, selecione uma forma de pagamento");
+            JOptionPane.showMessageDialog(null, "Por favor, selecione uma forma de pagamento", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
         }else {
             pform = pforms.get(areaSelec);
             editIdPform.setText(pform.getId().toString());
@@ -252,10 +260,10 @@ public class PayFormFrame extends javax.swing.JFrame {
     private void deletePform() {
         Integer pformSelec = pformsTable.getSelectedRow();        
         if(pformSelec == -1){
-            JOptionPane.showMessageDialog(rootPane, "Por favor, selecione uma área");
+            JOptionPane.showMessageDialog(null, "Por favor, selecione uma forma de pagamento", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
         }else {
             pform = pforms.get(pformSelec);
-            int delete = JOptionPane.showConfirmDialog(rootPane, "Deletar \"" + pform.getForm() + "\"?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            int delete = JOptionPane.showConfirmDialog(rootPane, "Deletar \"" + pform.getForm() + "\"?", "Sumptus - Confirmação", JOptionPane.YES_NO_OPTION);
             System.out.println("Delete = " + delete);
             if (delete == 0) {
                 try {

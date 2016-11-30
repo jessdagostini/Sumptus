@@ -80,21 +80,6 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setOutlay = new javax.swing.JDialog();
-        jLabel1 = new javax.swing.JLabel();
-        areasComboBox = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        pformsComboBox = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        inputDescription = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
-        inputCost = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        saveOutlayButton = new javax.swing.JButton();
-        purchaseCalendar = new com.toedter.calendar.JCalendar();
-        paymentCalendar = new com.toedter.calendar.JCalendar();
         outlaysPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         outlaysTable = new javax.swing.JTable();
@@ -110,117 +95,14 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         userMenu = new javax.swing.JMenu();
         editUserMenuItem = new javax.swing.JMenuItem();
 
-        setOutlay.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setOutlay.setTitle("Pagamento");
-        setOutlay.setMinimumSize(new java.awt.Dimension(500, 300));
-        setOutlay.setSize(new java.awt.Dimension(1080, 720));
-
-        jLabel1.setText("Forma de Pagamento");
-
-        areasComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                areasComboBoxActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Área");
-
-        pformsComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pformsComboBoxActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Descrição");
-
-        inputDescription.setColumns(20);
-        inputDescription.setRows(5);
-        jScrollPane2.setViewportView(inputDescription);
-
-        jLabel4.setText("Valor");
-
-        inputCost.setText("0.00");
-
-        jLabel5.setText("Data da Compra");
-
-        jLabel6.setText("Data de Pagamento");
-
-        saveOutlayButton.setText("Salvar");
-        saveOutlayButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveOutlayButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout setOutlayLayout = new javax.swing.GroupLayout(setOutlay.getContentPane());
-        setOutlay.getContentPane().setLayout(setOutlayLayout);
-        setOutlayLayout.setHorizontalGroup(
-            setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(setOutlayLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setOutlayLayout.createSequentialGroup()
-                        .addGroup(setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(38, 38, 38))
-                    .addGroup(setOutlayLayout.createSequentialGroup()
-                        .addGroup(setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)))
-                .addGroup(setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(purchaseCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputCost, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pformsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(areasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(setOutlayLayout.createSequentialGroup()
-                        .addComponent(paymentCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveOutlayButton)))
-                .addContainerGap(256, Short.MAX_VALUE))
-        );
-        setOutlayLayout.setVerticalGroup(
-            setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(setOutlayLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(pformsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(areasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(purchaseCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(setOutlayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(setOutlayLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel6))
-                    .addGroup(setOutlayLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(paymentCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setOutlayLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(saveOutlayButton)
-                .addContainerGap())
-        );
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sumptus - Painel Principal");
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1080, 520));
 
@@ -269,6 +151,11 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         outlayMenu.add(addOutlayMenuItem);
 
         editOutlayMenuItem.setText("Editar");
+        editOutlayMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editOutlayMenuItemActionPerformed(evt);
+            }
+        });
         outlayMenu.add(editOutlayMenuItem);
 
         menuBar.add(outlayMenu);
@@ -333,65 +220,9 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_listAllAreasMenuItemActionPerformed
 
     private void addOutlayMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOutlayMenuItemActionPerformed
-        // TODO add your handling code here:
-        setOutlay.setVisible(true);
-        manageOutlay();
+        OutlayDialog outlay = new OutlayDialog(userLogged);
+        outlay.setVisible(true);        
     }//GEN-LAST:event_addOutlayMenuItemActionPerformed
-
-    private void saveOutlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveOutlayButtonActionPerformed
-        // TODO add your handling code here:
-        outlay = new Outlay();
-        outlay.setUser(userLogged);
-        outlay.setArea(area);
-        outlay.setPform(pform);
-        outlay.setDescription(inputDescription.getText());
-        outlay.setCost(new BigDecimal(inputCost.getText()));
-        outlay.setPurchase_date(purchaseCalendar.getDate());
-        outlay.setPayment_day(paymentCalendar.getDate());
-        if(outlay.getArea() != null && outlay.getPform() != null){
-            try {
-            Integer id = outlayDAO.create(outlay);
-            System.out.println(outlay.getArea().getName() + " " + outlay.getPform().getForm() + " " + outlay.getCost().toString());
-            JOptionPane.showMessageDialog(rootPane, "Usuário criado" + id);
-            setOutlay.dispose();
-            initOutlays();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        } else {
-            JOptionPane.showMessageDialog(areasComboBox, "Por favor, edite os dados necessários");
-        }
-        
-
-    }//GEN-LAST:event_saveOutlayButtonActionPerformed
-
-    private void areasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_areasComboBoxActionPerformed
-        // TODO add your handling code here:
-        JComboBox jb = (JComboBox) evt.getSource();
-        String name = (String) jb.getSelectedItem();
-        if (name != "-") {
-            try {
-                area = areaDAO.findByName(name);
-            } catch (SQLException ex) {
-                Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-    }//GEN-LAST:event_areasComboBoxActionPerformed
-
-    private void pformsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pformsComboBoxActionPerformed
-        // TODO add your handling code here:
-        JComboBox jb = (JComboBox) evt.getSource();
-        String name = (String) jb.getSelectedItem();
-        if (name != "-") {
-            try {
-                pform = pformDAO.findByName(name);
-            } catch (SQLException ex) {
-                Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-    }//GEN-LAST:event_pformsComboBoxActionPerformed
 
     private void listAllPformsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAllPformsMenuItemActionPerformed
         // TODO add your handling code here:
@@ -406,28 +237,21 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         edit.setVisible(true);
     }//GEN-LAST:event_editUserMenuItemActionPerformed
 
-    private void manageOutlay() {
-        try {
-            areaDAO = new AreaDAO(DataBase.connection());
-            areas = areaDAO.findAll();
-            areasComboBox.addItem("-");
-            for (Area area : areas) {
-                System.out.println(area.getName());
-                areasComboBox.addItem(area.getName());
-            }
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        initOutlays();
+    }//GEN-LAST:event_formWindowActivated
 
-            pformDAO = new PayFormDAO(DataBase.connection());
-            pforms = pformDAO.findAll();
-            pformsComboBox.addItem("-");
-            for (PayForm pform : pforms) {
-                System.out.println(pform.getForm());
-                pformsComboBox.addItem(pform.getForm());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+    private void editOutlayMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editOutlayMenuItemActionPerformed
+        // TODO add your handling code here:
+        Integer id = outlaysTable.getSelectedRow();
+        outlay = outlays.get(id);
+        System.out.println(outlay.getId());
+        OutlayDialog outlayDialog = new OutlayDialog(outlay);
+        outlayDialog.setVisible(true);
+        
+    }//GEN-LAST:event_editOutlayMenuItemActionPerformed
+   
 
     /**
      * @param args the command line arguments
@@ -468,31 +292,16 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addOutlayMenuItem;
     private javax.swing.JMenu areaMenu;
-    private javax.swing.JComboBox<String> areasComboBox;
     private javax.swing.JMenuItem editOutlayMenuItem;
     private javax.swing.JMenuItem editUserMenuItem;
-    private javax.swing.JTextField inputCost;
-    private javax.swing.JTextArea inputDescription;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuItem listAllAreasMenuItem;
     private javax.swing.JMenuItem listAllPformsMenuItem;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu outlayMenu;
     private javax.swing.JPanel outlaysPanel;
     private javax.swing.JTable outlaysTable;
-    private com.toedter.calendar.JCalendar paymentCalendar;
     private javax.swing.JMenu pformMenu;
-    private javax.swing.JComboBox<String> pformsComboBox;
-    private com.toedter.calendar.JCalendar purchaseCalendar;
-    private javax.swing.JButton saveOutlayButton;
-    private javax.swing.JDialog setOutlay;
     private javax.swing.JMenu userMenu;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables

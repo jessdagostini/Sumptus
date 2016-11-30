@@ -151,8 +151,11 @@ public class AreaFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Áreas");
-        setPreferredSize(new java.awt.Dimension(1080, 720));
+        setTitle("Sumptus - Áreas");
+        setMaximumSize(new java.awt.Dimension(800, 700));
+        setMinimumSize(new java.awt.Dimension(800, 700));
+        setPreferredSize(new java.awt.Dimension(800, 700));
+        setResizable(false);
 
         areasTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -227,21 +230,23 @@ public class AreaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteAreaMenuMouseClicked
 
     private void newAreaMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newAreaMenuMouseClicked
-        // TODO add your handling code here:
-        System.out.println("Entrou MouseClickeds");
-        String newArea = JOptionPane.showInputDialog("Digite a nova área");
-        System.out.println(newArea);
-        if (newArea != "") {
-            try {
-                AreaDAO DAO = new AreaDAO(DataBase.connection());
-                Area area = new Area();
-                area.setName(newArea);
-                DAO.create(area);
-                JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-                findAreas();
-            } catch (SQLException ex) {
-                Logger.getLogger(AreaFrame.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Erro ao gravar pessoa", "Erro", JOptionPane.ERROR);
+        String newArea = JOptionPane.showInputDialog(areaScrollPane,"Digite a nova área", "Sumptus - Nova Área", JOptionPane.INFORMATION_MESSAGE);
+        if(newArea != null){
+            if (!newArea.trim().isEmpty()) {
+                try {
+                    AreaDAO DAO = new AreaDAO(DataBase.connection());
+                    Area area = new Area();
+                    area.setName(newArea);
+                    DAO.create(area);
+                    JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sumptus - Informação", JOptionPane.INFORMATION_MESSAGE);
+                    findAreas();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AreaFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Erro ao gravar área", "Sumptus - Erro", JOptionPane.ERROR);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, preencha este campo", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+                newAreaMenuMouseClicked(evt);
             }
         }
     }//GEN-LAST:event_newAreaMenuMouseClicked
@@ -272,7 +277,7 @@ public class AreaFrame extends javax.swing.JFrame {
     private void editArea(){
         Integer areaSelec = areasTable.getSelectedRow();        
         if(areaSelec == -1){
-            JOptionPane.showMessageDialog(rootPane, "Por favor, selecione uma área");
+            JOptionPane.showMessageDialog(null, "Por favor, selecione uma área", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
         }else {
             area = areas.get(areaSelec);
             editIdArea.setText(area.getId().toString());
@@ -284,10 +289,10 @@ public class AreaFrame extends javax.swing.JFrame {
     private void deleteArea() {
         Integer areaSelec = areasTable.getSelectedRow();        
         if(areaSelec == -1){
-            JOptionPane.showMessageDialog(rootPane, "Por favor, selecione uma área");
+            JOptionPane.showMessageDialog(null, "Por favor, selecione uma área", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
         }else {
             area = areas.get(areaSelec);
-            int delete = JOptionPane.showConfirmDialog(rootPane, "Deletar \"" + area.getName() + "\"?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            int delete = JOptionPane.showConfirmDialog(rootPane, "Deletar \"" + area.getName() + "\"?", "Sumptus - Confirmação", JOptionPane.YES_NO_OPTION);
             System.out.println("Delete = " + delete);
             if (delete == 0) {
                 try {
