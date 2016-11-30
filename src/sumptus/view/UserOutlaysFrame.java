@@ -7,7 +7,10 @@ package sumptus.view;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -46,6 +49,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         initComponents();
         this.userLogged = userLogged;
         initOutlays();
+        Locale locale = new Locale("pt", "BR");
     }
 
     private UserOutlaysFrame() {
@@ -58,6 +62,10 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
             outlays = outlayDAO.findByUser(userLogged.getId());
             outlayTbModel = new OutlayTableModel(outlays);
             outlaysTable.setModel(outlayTbModel);
+            LocalDate today = LocalDate.now();
+            String diaDaSemana = today.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+            String mes = today.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
+            welcomeLabel.setText("Olá " + userLogged.getName() + "! Hoje é " + diaDaSemana + ", " + today.getDayOfMonth() + " de " + mes + " de " + today.getYear());
         } catch (SQLException ex) {
             Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,6 +98,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         outlaysPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         outlaysTable = new javax.swing.JTable();
+        welcomeLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         outlayMenu = new javax.swing.JMenu();
         addOutlayMenuItem = new javax.swing.JMenuItem();
@@ -99,6 +108,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         pformMenu = new javax.swing.JMenu();
         listAllPformsMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
+        editUserMenuItem = new javax.swing.JMenuItem();
 
         setOutlay.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setOutlay.setTitle("Pagamento");
@@ -227,15 +237,25 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(outlaysTable);
 
+        welcomeLabel.setText("jLabel7");
+
         javax.swing.GroupLayout outlaysPanelLayout = new javax.swing.GroupLayout(outlaysPanel);
         outlaysPanel.setLayout(outlaysPanelLayout);
         outlaysPanelLayout.setHorizontalGroup(
             outlaysPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(outlaysPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(welcomeLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         outlaysPanelLayout.setVerticalGroup(
             outlaysPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, outlaysPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(welcomeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         outlayMenu.setText("Gastos");
@@ -278,6 +298,15 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         menuBar.add(pformMenu);
 
         userMenu.setText("Usuários");
+
+        editUserMenuItem.setText("Editar usuário");
+        editUserMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editUserMenuItemActionPerformed(evt);
+            }
+        });
+        userMenu.add(editUserMenuItem);
+
         menuBar.add(userMenu);
 
         setJMenuBar(menuBar);
@@ -370,6 +399,13 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         pforms.setVisible(true);
     }//GEN-LAST:event_listAllPformsMenuItemActionPerformed
 
+    private void editUserMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserMenuItemActionPerformed
+        // TODO add your handling code here
+        UserEditFrame edit = new UserEditFrame();
+        edit.setUser(userLogged);
+        edit.setVisible(true);
+    }//GEN-LAST:event_editUserMenuItemActionPerformed
+
     private void manageOutlay() {
         try {
             areaDAO = new AreaDAO(DataBase.connection());
@@ -434,6 +470,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     private javax.swing.JMenu areaMenu;
     private javax.swing.JComboBox<String> areasComboBox;
     private javax.swing.JMenuItem editOutlayMenuItem;
+    private javax.swing.JMenuItem editUserMenuItem;
     private javax.swing.JTextField inputCost;
     private javax.swing.JTextArea inputDescription;
     private javax.swing.JLabel jLabel1;
@@ -457,5 +494,6 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     private javax.swing.JButton saveOutlayButton;
     private javax.swing.JDialog setOutlay;
     private javax.swing.JMenu userMenu;
+    private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }
