@@ -275,9 +275,10 @@ public class OutlayDialog extends javax.swing.JDialog {
                     Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
+                System.out.println(outlay.getDescription());
                 try{
-                    outlayDAO.update(outlay);
-                    JOptionPane.showMessageDialog(rootPane, "Usuário atualizado");
+                    String saida = outlayDAO.update(outlay);
+                    JOptionPane.showMessageDialog(rootPane, saida);
                     this.dispose();
                 }catch(SQLException ex){
                     Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);

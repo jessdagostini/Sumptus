@@ -105,6 +105,11 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         });
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1080, 520));
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
 
         outlaysTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -248,9 +253,25 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         outlay = outlays.get(id);
         System.out.println(outlay.getId());
         OutlayDialog outlayDialog = new OutlayDialog(outlay);
-        outlayDialog.setVisible(true);
-        
+        outlayDialog.setVisible(true);        
     }//GEN-LAST:event_editOutlayMenuItemActionPerformed
+
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+        if(evt.getClickCount() == 2){
+            System.out.println("entrou");
+            Integer id = outlaysTable.getSelectedRow();
+            outlay = outlays.get(id);
+            Integer gravar = JOptionPane.showConfirmDialog(areaMenu, "Marcar como pago?");
+            if(gravar == 0){
+                try {
+                    outlay.setPaid(true);
+                    outlayDAO.update(outlay);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_jScrollPane1MouseClicked
    
 
     /**

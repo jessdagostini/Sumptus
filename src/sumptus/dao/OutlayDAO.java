@@ -150,15 +150,15 @@ public class OutlayDAO {
     }
     
     public String update(Outlay outlay) throws SQLException{
-        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, payment_day = ?, purchase_date = ?, paid = ? WHERE id = ?";
+        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, purchase_date = ?, payment_day = ?, paid = ? WHERE id = ?";
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setInt(1, outlay.getArea().getId());
             stm.setInt(2, outlay.getPform().getId());
             stm.setString(3, outlay.getDescription());
             java.sql.Date dataPurchase = new java.sql.Date(outlay.getPurchase_date().getTime());
-            stm.setDate(6, dataPurchase);
+            stm.setDate(4, dataPurchase);
             java.sql.Date dataPayment = new java.sql.Date(outlay.getPayment_day().getTime());
-            stm.setDate(7, dataPayment);            
+            stm.setDate(5, dataPayment);            
             stm.setBoolean(6, outlay.savePaid());
             stm.setInt(7, outlay.getId());
             stm.execute();
