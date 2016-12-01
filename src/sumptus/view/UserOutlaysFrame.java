@@ -79,7 +79,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         outlaysPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        outlaysScrollPane = new javax.swing.JScrollPane();
         outlaysTable = new javax.swing.JTable();
         welcomeLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
@@ -102,7 +102,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(1080, 520));
+        outlaysScrollPane.setPreferredSize(new java.awt.Dimension(1080, 520));
 
         outlaysTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,7 +120,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
                 outlaysTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(outlaysTable);
+        outlaysScrollPane.setViewportView(outlaysTable);
 
         welcomeLabel.setText("jLabel7");
 
@@ -128,7 +128,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         outlaysPanel.setLayout(outlaysPanelLayout);
         outlaysPanelLayout.setHorizontalGroup(
             outlaysPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(outlaysScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(outlaysPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(welcomeLabel)
@@ -140,7 +140,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(welcomeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(outlaysScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         outlayMenu.setText("Gastos");
@@ -313,12 +313,12 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     private javax.swing.JMenu areaMenu;
     private javax.swing.JMenuItem editOutlayMenuItem;
     private javax.swing.JMenuItem editUserMenuItem;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem listAllAreasMenuItem;
     private javax.swing.JMenuItem listAllPformsMenuItem;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu outlayMenu;
     private javax.swing.JPanel outlaysPanel;
+    private javax.swing.JScrollPane outlaysScrollPane;
     private javax.swing.JTable outlaysTable;
     private javax.swing.JMenu pformMenu;
     private javax.swing.JMenu userMenu;

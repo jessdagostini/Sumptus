@@ -50,7 +50,7 @@ public class UserDAO {
         }
     }
     
-    public boolean update(User user) throws SQLException{
+    public String update(User user) throws SQLException{
         String sql = "UPDATE users SET name = ?, login = ?, password = ? WHERE id = ?";
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setString(1, user.getName());
@@ -60,10 +60,9 @@ public class UserDAO {
             stm.execute();
             
             con.commit();
-            return true;
+            return "Usuário atualizado!";
         } catch(Exception ex){
-            System.out.println("Não foi possível atualizar " + ex.getMessage());
-            return false;
+            return("Não foi possível atualizar " + ex.getMessage());
         }
     }
     

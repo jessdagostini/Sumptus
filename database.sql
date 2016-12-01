@@ -38,6 +38,7 @@ WITH (
 ALTER TABLE users
   OWNER TO postgres;
 
+ALTER TABLE users ADD CONSTRAINT user_login_unique UNIQUE(login);
 
 CREATE TABLE outlays
 (

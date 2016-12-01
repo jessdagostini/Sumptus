@@ -66,10 +66,10 @@ public class AreaFrame extends javax.swing.JFrame {
 
         editAreaDialog = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        idLabel = new javax.swing.JLabel();
         editIdArea = new javax.swing.JTextField();
         editNameArea = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        areaLabel = new javax.swing.JLabel();
         saveAreaButton = new javax.swing.JButton();
         cancelAreaButton = new javax.swing.JButton();
         areaScrollPane = new javax.swing.JScrollPane();
@@ -85,12 +85,12 @@ public class AreaFrame extends javax.swing.JFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 300));
 
-        jLabel1.setText("ID");
+        idLabel.setText("ID");
 
         editIdArea.setEnabled(false);
         editIdArea.setFocusable(false);
 
-        jLabel2.setText("Área");
+        areaLabel.setText("Área");
 
         saveAreaButton.setText("Salvar");
         saveAreaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -119,8 +119,8 @@ public class AreaFrame extends javax.swing.JFrame {
                         .addComponent(saveAreaButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(idLabel)
+                            .addComponent(areaLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(editNameArea, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -132,12 +132,12 @@ public class AreaFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(97, 97, 97)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(idLabel)
                     .addComponent(editIdArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editNameArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(areaLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveAreaButton)
@@ -226,10 +226,12 @@ public class AreaFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void areasTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_areasTableMouseClicked
-        if (evt.getClickCount() == 2 && userLogged.getAdmin() == true) {
-            editArea();
-        } else {
-            JOptionPane.showMessageDialog(null, "Desculpe, você não tem permissão para fazer isso.", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+        if (evt.getClickCount() == 2) {
+            if(userLogged.getAdmin() == true){
+                editArea();
+            } else {
+                JOptionPane.showMessageDialog(null, "Desculpe, você não tem permissão para fazer isso.", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_areasTableMouseClicked
 
@@ -359,6 +361,7 @@ public class AreaFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel areaLabel;
     private javax.swing.JMenuBar areaMenuBar;
     private javax.swing.JScrollPane areaScrollPane;
     private javax.swing.JTable areasTable;
@@ -368,8 +371,7 @@ public class AreaFrame extends javax.swing.JFrame {
     private javax.swing.JMenu editAreaMenu;
     private javax.swing.JTextField editIdArea;
     private javax.swing.JTextField editNameArea;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel idLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu newAreaMenu;
     private javax.swing.JButton saveAreaButton;

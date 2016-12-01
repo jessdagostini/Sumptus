@@ -329,18 +329,24 @@ public class UserLoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_newUserButtonActionPerformed
 
     private void createUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserButtonActionPerformed
-        user.setName(inputNewName.getText());
-        user.setLogin(inputNewLogin.getText());
-        user.setAdmin(inputNewAdmin.isSelected());
-        try {
-            if(inputNewPassword.getText().equals(inputVerifyPassword.getText())){
-                user.setPassword(inputNewPassword.getText());
-            }        
-            String saida = userDAO.create(user);
-            JOptionPane.showMessageDialog(rootPane, saida);
-            newUserPanel.setVisible(false);
-            loginPanel.setVisible(true);
-        } catch (SQLException ex) {
+        if(inputNewLogin.getText().length() > 0 && inputNewPassword.getText().length() > 0){
+            user.setName(inputNewName.getText());
+            user.setLogin(inputNewLogin.getText().trim());
+            user.setAdmin(inputNewAdmin.isSelected());
+            try {
+                if(inputNewPassword.getText().equals(inputVerifyPassword.getText())){
+                    user.setPassword(inputNewPassword.getText().trim());
+                }        
+                String saida = userDAO.create(user);
+                JOptionPane.showMessageDialog(rootPane, saida);
+                newUserPanel.setVisible(false);
+                loginPanel.setVisible(true);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível criar seu usuário.");
+            } catch (NullPointerException ex){
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível criar seu usuário.");
+            }
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível criar seu usuário.");
         }
     }//GEN-LAST:event_createUserButtonActionPerformed

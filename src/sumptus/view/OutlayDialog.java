@@ -97,17 +97,17 @@ public class OutlayDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        pformLabel = new javax.swing.JLabel();
         areasComboBox = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
+        areaLabel = new javax.swing.JLabel();
         pformsComboBox = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
+        descriptionLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         inputDescription = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
+        costLabel = new javax.swing.JLabel();
         inputCost = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        purchaseLabel = new javax.swing.JLabel();
+        paymentLabel = new javax.swing.JLabel();
         saveOutlayButton = new javax.swing.JButton();
         purchaseCalendar = new com.toedter.calendar.JCalendar();
         paymentCalendar = new com.toedter.calendar.JCalendar();
@@ -116,7 +116,7 @@ public class OutlayDialog extends javax.swing.JDialog {
         setTitle("Sumptus - Adicionar Gasto");
         setResizable(false);
 
-        jLabel1.setText("Forma de Pagamento");
+        pformLabel.setText("Forma de Pagamento");
 
         areasComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +124,7 @@ public class OutlayDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Área");
+        areaLabel.setText("Área");
 
         pformsComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,19 +132,19 @@ public class OutlayDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setText("Descrição");
+        descriptionLabel.setText("Descrição");
 
         inputDescription.setColumns(20);
         inputDescription.setRows(5);
         jScrollPane2.setViewportView(inputDescription);
 
-        jLabel4.setText("Valor");
+        costLabel.setText("Valor");
 
         inputCost.setText("0.00");
 
-        jLabel5.setText("Data da Compra");
+        purchaseLabel.setText("Data da Compra");
 
-        jLabel6.setText("Data de Pagamento");
+        paymentLabel.setText("Data de Pagamento");
 
         saveOutlayButton.setText("Salvar");
         saveOutlayButton.addActionListener(new java.awt.event.ActionListener() {
@@ -167,15 +167,15 @@ public class OutlayDialog extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
+                                    .addComponent(areaLabel)
+                                    .addComponent(pformLabel)
+                                    .addComponent(descriptionLabel)
+                                    .addComponent(costLabel))
                                 .addGap(38, 38, 38))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5))
+                                    .addComponent(paymentLabel)
+                                    .addComponent(purchaseLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(inputCost, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,28 +191,28 @@ public class OutlayDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(pformLabel)
                     .addComponent(pformsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(areaLabel)
                     .addComponent(areasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
+                    .addComponent(descriptionLabel)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(costLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
+                    .addComponent(purchaseLabel)
                     .addComponent(purchaseCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jLabel6))
+                        .addComponent(paymentLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(paymentCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,19 +324,19 @@ public class OutlayDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel areaLabel;
     private javax.swing.JComboBox<String> areasComboBox;
+    private javax.swing.JLabel costLabel;
+    private javax.swing.JLabel descriptionLabel;
     private javax.swing.JTextField inputCost;
     private javax.swing.JTextArea inputDescription;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;
     private com.toedter.calendar.JCalendar paymentCalendar;
+    private javax.swing.JLabel paymentLabel;
+    private javax.swing.JLabel pformLabel;
     private javax.swing.JComboBox<String> pformsComboBox;
     private com.toedter.calendar.JCalendar purchaseCalendar;
+    private javax.swing.JLabel purchaseLabel;
     private javax.swing.JButton saveOutlayButton;
     // End of variables declaration//GEN-END:variables
 }

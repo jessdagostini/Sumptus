@@ -58,9 +58,9 @@ public class PayFormFrame extends javax.swing.JFrame {
 
         editPformDialog = new javax.swing.JDialog();
         editIdPform = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        idLabel = new javax.swing.JLabel();
         editNamePform = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        formLabel = new javax.swing.JLabel();
         cancelPformButton = new javax.swing.JButton();
         savePformButton = new javax.swing.JButton();
         pformScrollPane = new javax.swing.JScrollPane();
@@ -76,9 +76,9 @@ public class PayFormFrame extends javax.swing.JFrame {
         editIdPform.setEnabled(false);
         editIdPform.setFocusable(false);
 
-        jLabel1.setText("Id");
+        idLabel.setText("Id");
 
-        jLabel2.setText("Forma");
+        formLabel.setText("Forma");
 
         cancelPformButton.setText("Cancelar");
         cancelPformButton.addActionListener(new java.awt.event.ActionListener() {
@@ -108,8 +108,8 @@ public class PayFormFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, editPformDialogLayout.createSequentialGroup()
                         .addGap(92, 92, 92)
                         .addGroup(editPformDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(formLabel)
+                            .addComponent(idLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(editPformDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(editIdPform, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,10 +122,10 @@ public class PayFormFrame extends javax.swing.JFrame {
                 .addContainerGap(129, Short.MAX_VALUE)
                 .addGroup(editPformDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editIdPform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(idLabel))
                 .addGap(14, 14, 14)
                 .addGroup(editPformDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(formLabel)
                     .addComponent(editNamePform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(editPformDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -189,11 +189,11 @@ public class PayFormFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pformScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+            .addComponent(pformScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pformScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+            .addComponent(pformScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
         );
 
         pack();
@@ -335,8 +335,8 @@ public class PayFormFrame extends javax.swing.JFrame {
     private javax.swing.JTextField editNamePform;
     private javax.swing.JDialog editPformDialog;
     private javax.swing.JMenu editPformMenu;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel formLabel;
+    private javax.swing.JLabel idLabel;
     private javax.swing.JMenu newPformMenu;
     private javax.swing.JMenuBar pformMenuBar;
     private javax.swing.JScrollPane pformScrollPane;

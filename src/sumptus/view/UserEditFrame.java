@@ -33,8 +33,7 @@ public class UserEditFrame extends javax.swing.JFrame {
         userLogin.setText(user.getLogin());
         userName.setText(user.getName());
         userPassword1.setText(user.getPassword());
-    }
-    
+    }  
     
 
     /**
@@ -46,10 +45,10 @@ public class UserEditFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        passwordLabel1 = new javax.swing.JLabel();
+        loginLabel = new javax.swing.JLabel();
+        passwordLabel2 = new javax.swing.JLabel();
         userLogin = new javax.swing.JTextField();
         userName = new javax.swing.JTextField();
         userPassword1 = new javax.swing.JPasswordField();
@@ -60,13 +59,13 @@ public class UserEditFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sumptus - Atualizar usuário");
 
-        jLabel1.setText("Nome");
+        nameLabel.setText("Nome");
 
-        jLabel2.setText("Senha");
+        passwordLabel1.setText("Senha");
 
-        jLabel3.setText("Login");
+        loginLabel.setText("Login");
 
-        jLabel4.setText("Repetir Senha");
+        passwordLabel2.setText("Repetir Senha");
 
         userLogin.setEditable(false);
         userLogin.setEnabled(false);
@@ -97,10 +96,10 @@ public class UserEditFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(passwordLabel2)
+                            .addComponent(loginLabel)
+                            .addComponent(passwordLabel1)
+                            .addComponent(nameLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -120,18 +119,18 @@ public class UserEditFrame extends javax.swing.JFrame {
                 .addContainerGap(93, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(loginLabel))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(nameLabel))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(passwordLabel1)
                     .addComponent(userPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(passwordLabel2)
                     .addComponent(userPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -149,16 +148,14 @@ public class UserEditFrame extends javax.swing.JFrame {
 
     private void saveUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveUserButtonActionPerformed
         user.setName(userName.getText());
+        user.setPassword(null);
         try {
-            //[C@450ac7 [C@16e3a9
-            System.out.println(userPassword1.getPassword() + " " + userPassword2.getPassword());                
             if(userPassword1.getText().equals(userPassword2.getText())){
                 user.setPassword(userPassword1.getText());        
             }
             UserDAO dao = new UserDAO(DataBase.connection());
-            dao.update(user);
-            JOptionPane.showMessageDialog(rootPane, "Usuário " + userName.getText() + " atualizado com sucesso!");
-            this.dispose();
+            String saida = dao.update(user);
+            JOptionPane.showMessageDialog(rootPane, saida);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Problemas ao atualizar usuário.");
         }
@@ -204,10 +201,10 @@ public class UserEditFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelUserButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel loginLabel;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel passwordLabel1;
+    private javax.swing.JLabel passwordLabel2;
     private javax.swing.JButton saveUserButton;
     private javax.swing.JTextField userLogin;
     private javax.swing.JTextField userName;
