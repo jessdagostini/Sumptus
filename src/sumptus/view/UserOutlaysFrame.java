@@ -50,6 +50,10 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         this.userLogged = userLogged;
         initOutlays();
         Locale locale = new Locale("pt", "BR");
+        LocalDate today = LocalDate.now();
+        String diaDaSemana = today.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+        String mes = today.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
+        welcomeLabel.setText("Olá " + userLogged.getName() + "! Hoje é " + diaDaSemana + ", " + today.getDayOfMonth() + " de " + mes + " de " + today.getYear());
     }
 
     private UserOutlaysFrame() {
@@ -62,10 +66,6 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
             outlays = outlayDAO.findByUser(userLogged.getId());
             outlayTbModel = new OutlayTableModel(outlays);
             outlaysTable.setModel(outlayTbModel);
-            LocalDate today = LocalDate.now();
-            String diaDaSemana = today.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
-            String mes = today.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
-            welcomeLabel.setText("Olá " + userLogged.getName() + "! Hoje é " + diaDaSemana + ", " + today.getDayOfMonth() + " de " + mes + " de " + today.getYear());
         } catch (SQLException ex) {
             Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -105,11 +105,6 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         });
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1080, 520));
-        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jScrollPane1MouseClicked(evt);
-            }
-        });
 
         outlaysTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,6 +117,11 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        outlaysTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                outlaysTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(outlaysTable);
 
         welcomeLabel.setText("jLabel7");
@@ -218,61 +218,61 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void listAllAreasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAllAreasMenuItemActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Entrou ActionPerformed");
         AreaFrame areas = new AreaFrame();
         areas.setVisible(true);
     }//GEN-LAST:event_listAllAreasMenuItemActionPerformed
 
     private void addOutlayMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOutlayMenuItemActionPerformed
         OutlayDialog outlay = new OutlayDialog(userLogged);
-        outlay.setVisible(true);        
+        outlay.setVisible(true);
     }//GEN-LAST:event_addOutlayMenuItemActionPerformed
 
     private void listAllPformsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAllPformsMenuItemActionPerformed
-        // TODO add your handling code here:
         PayFormFrame pforms = new PayFormFrame();
         pforms.setVisible(true);
     }//GEN-LAST:event_listAllPformsMenuItemActionPerformed
 
     private void editUserMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserMenuItemActionPerformed
-        // TODO add your handling code here
         UserEditFrame edit = new UserEditFrame();
         edit.setUser(userLogged);
         edit.setVisible(true);
     }//GEN-LAST:event_editUserMenuItemActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
         initOutlays();
     }//GEN-LAST:event_formWindowActivated
 
     private void editOutlayMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editOutlayMenuItemActionPerformed
-        // TODO add your handling code here:
-        Integer id = outlaysTable.getSelectedRow();
-        outlay = outlays.get(id);
-        System.out.println(outlay.getId());
-        OutlayDialog outlayDialog = new OutlayDialog(outlay);
-        outlayDialog.setVisible(true);        
+        Integer index = outlaysTable.getSelectedRow();
+        if(index != -1){
+            outlay = outlays.get(index);
+            OutlayDialog outlayDialog = new OutlayDialog(outlay);
+            outlayDialog.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(areaMenu, "Por favor, selecione um registro.");
+        }
     }//GEN-LAST:event_editOutlayMenuItemActionPerformed
 
-    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
-        if(evt.getClickCount() == 2){
-            System.out.println("entrou");
-            Integer id = outlaysTable.getSelectedRow();
-            outlay = outlays.get(id);
-            Integer gravar = JOptionPane.showConfirmDialog(areaMenu, "Marcar como pago?");
-            if(gravar == 0){
-                try {
+    private void outlaysTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_outlaysTableMouseClicked
+        Integer index = outlaysTable.getSelectedRow();
+        outlay = outlays.get(index);
+        if (evt.getClickCount() == 2) {
+            Integer pay = JOptionPane.showConfirmDialog(areaMenu, "Deseja marcar como pago?", "Sumptus - Confirmação de pagamento", JOptionPane.YES_NO_OPTION);
+            switch (pay) {
+                case 0:
                     outlay.setPaid(true);
-                    outlayDAO.update(outlay);
-                } catch (SQLException ex) {
-                    Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    try {
+                        outlayDAO.update(outlay);
+                        JOptionPane.showMessageDialog(areaMenu, "Registro atualizado");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                default:
+                    System.out.println("Não pagou");
             }
         }
-    }//GEN-LAST:event_jScrollPane1MouseClicked
-   
+    }//GEN-LAST:event_outlaysTableMouseClicked
 
     /**
      * @param args the command line arguments
