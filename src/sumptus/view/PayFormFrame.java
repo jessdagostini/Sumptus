@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import sumptus.dao.DataBase;
 import sumptus.dao.PayFormDAO;
 import sumptus.model.PayForm;
+import sumptus.model.User;
 
 /**
  *
@@ -19,6 +20,7 @@ public class PayFormFrame extends javax.swing.JFrame {
     private List<PayForm> pforms;
     private PayFormTableModel pformTbModel;
     private PayForm pform;
+    private User userLogged;
 
     /**
      * Creates new form PayFormFrame
@@ -26,6 +28,12 @@ public class PayFormFrame extends javax.swing.JFrame {
     public PayFormFrame() {
         initComponents();
         findPforms();
+    }
+
+    public PayFormFrame(User userLogged) {
+        initComponents();
+        findPforms();
+        this.userLogged = userLogged;
     }
 
     public void findPforms() {
@@ -192,30 +200,33 @@ public class PayFormFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pformsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pformsTableMouseClicked
-        // TODO add your handling code here:
-        if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2 && userLogged.getAdmin() == true) {
             editPform();
         }
     }//GEN-LAST:event_pformsTableMouseClicked
 
     private void newPformMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newPformMenuMouseClicked
-        String newPform = JOptionPane.showInputDialog(pformScrollPane,"Digite a nova forma", "Sumptus - Nova Forma Pagamento", JOptionPane.INFORMATION_MESSAGE);
-        if(newPform != null){
-            if (!newPform.trim().isEmpty()) {
-                try {
-                    PayForm pform = new PayForm();
-                    pform.setForm(newPform);
-                    pformDAO.create(pform);
-                    JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sumptus - Informação", JOptionPane.INFORMATION_MESSAGE);
-                    findPforms();
-                } catch (SQLException ex) {
-                    Logger.getLogger(AreaFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "Erro ao gravar pessoa", "Sumptus - Erro", JOptionPane.ERROR);
+        if (userLogged.getAdmin() == true) {
+            String newPform = JOptionPane.showInputDialog(pformScrollPane, "Digite a nova forma", "Sumptus - Nova Forma Pagamento", JOptionPane.INFORMATION_MESSAGE);
+            if (newPform != null) {
+                if (!newPform.trim().isEmpty()) {
+                    try {
+                        PayForm pform = new PayForm();
+                        pform.setForm(newPform);
+                        pformDAO.create(pform);
+                        JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sumptus - Informação", JOptionPane.INFORMATION_MESSAGE);
+                        findPforms();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AreaFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Erro ao gravar pessoa", "Sumptus - Erro", JOptionPane.ERROR);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor, preencha este campo", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+                    newPformMenuMouseClicked(evt);
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Por favor, preencha este campo", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
-                newPformMenuMouseClicked(evt);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Desculpe, você não tem permissão para fazer isso.", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_newPformMenuMouseClicked
 
@@ -236,32 +247,38 @@ public class PayFormFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_savePformButtonActionPerformed
 
     private void editPformMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editPformMenuMouseClicked
-        // TODO add your handling code here:
-        editPform();
+        if(userLogged.getAdmin() == true) {
+            editPform();
+        } else {
+            JOptionPane.showMessageDialog(null, "Desculpe, você não tem permissão para fazer isso.", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_editPformMenuMouseClicked
 
     private void deletePformMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePformMenuMouseClicked
-        // TODO add your handling code here:
-        deletePform();
+        if(userLogged.getAdmin() == true) {
+            deletePform();
+        } else {
+            JOptionPane.showMessageDialog(null, "Desculpe, você não tem permissão para fazer isso.", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_deletePformMenuMouseClicked
-    
-    private void editPform(){
-        Integer areaSelec = pformsTable.getSelectedRow();        
-        if(areaSelec == -1){
+
+    private void editPform() {
+        Integer areaSelec = pformsTable.getSelectedRow();
+        if (areaSelec == -1) {
             JOptionPane.showMessageDialog(null, "Por favor, selecione uma forma de pagamento", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
-        }else {
+        } else {
             pform = pforms.get(areaSelec);
             editIdPform.setText(pform.getId().toString());
-            editNamePform.setText(pform.getForm());            
+            editNamePform.setText(pform.getForm());
             editPformDialog.setVisible(true);
         }
     }
-    
+
     private void deletePform() {
-        Integer pformSelec = pformsTable.getSelectedRow();        
-        if(pformSelec == -1){
+        Integer pformSelec = pformsTable.getSelectedRow();
+        if (pformSelec == -1) {
             JOptionPane.showMessageDialog(null, "Por favor, selecione uma forma de pagamento", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
-        }else {
+        } else {
             pform = pforms.get(pformSelec);
             int delete = JOptionPane.showConfirmDialog(rootPane, "Deletar \"" + pform.getForm() + "\"?", "Sumptus - Confirmação", JOptionPane.YES_NO_OPTION);
             System.out.println("Delete = " + delete);

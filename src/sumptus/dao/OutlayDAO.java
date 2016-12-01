@@ -6,10 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 import sumptus.dao.AreaDAO;
 import sumptus.dao.PayFormDAO;
 import sumptus.dao.UserDAO;
@@ -150,17 +148,18 @@ public class OutlayDAO {
     }
     
     public String update(Outlay outlay) throws SQLException{
-        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, purchase_date = ?, payment_day = ?, paid = ? WHERE id = ?";
+        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, cost = ?, purchase_date = ?, payment_day = ?, paid = ? WHERE id = ?";
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setInt(1, outlay.getArea().getId());
             stm.setInt(2, outlay.getPform().getId());
             stm.setString(3, outlay.getDescription());
+            stm.setBigDecimal(4, outlay.getCost());            
             java.sql.Date dataPurchase = new java.sql.Date(outlay.getPurchase_date().getTime());
-            stm.setDate(4, dataPurchase);
+            stm.setDate(5, dataPurchase);
             java.sql.Date dataPayment = new java.sql.Date(outlay.getPayment_day().getTime());
-            stm.setDate(5, dataPayment);            
-            stm.setBoolean(6, outlay.savePaid());
-            stm.setInt(7, outlay.getId());
+            stm.setDate(6, dataPayment);            
+            stm.setBoolean(7, outlay.savePaid());
+            stm.setInt(8, outlay.getId());
             stm.execute();
             
             con.commit();

@@ -11,8 +11,6 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import sumptus.dao.AreaDAO;
@@ -67,7 +65,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
             outlayTbModel = new OutlayTableModel(outlays);
             outlaysTable.setModel(outlayTbModel);
         } catch (SQLException ex) {
-            Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }
 
@@ -218,7 +216,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void listAllAreasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAllAreasMenuItemActionPerformed
-        AreaFrame areas = new AreaFrame();
+        AreaFrame areas = new AreaFrame(userLogged);
         areas.setVisible(true);
     }//GEN-LAST:event_listAllAreasMenuItemActionPerformed
 
@@ -228,7 +226,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addOutlayMenuItemActionPerformed
 
     private void listAllPformsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAllPformsMenuItemActionPerformed
-        PayFormFrame pforms = new PayFormFrame();
+        PayFormFrame pforms = new PayFormFrame(userLogged);
         pforms.setVisible(true);
     }//GEN-LAST:event_listAllPformsMenuItemActionPerformed
 
@@ -249,23 +247,23 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
             OutlayDialog outlayDialog = new OutlayDialog(outlay);
             outlayDialog.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(areaMenu, "Por favor, selecione um registro.");
+            JOptionPane.showMessageDialog(rootPane, "Por favor, selecione um registro.");
         }
     }//GEN-LAST:event_editOutlayMenuItemActionPerformed
 
     private void outlaysTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_outlaysTableMouseClicked
         Integer index = outlaysTable.getSelectedRow();
         outlay = outlays.get(index);
-        if (evt.getClickCount() == 2) {
-            Integer pay = JOptionPane.showConfirmDialog(areaMenu, "Deseja marcar como pago?", "Sumptus - Confirmação de pagamento", JOptionPane.YES_NO_OPTION);
+        if (evt.getClickCount() == 2 && outlay.savePaid() == false) {
+            Integer pay = JOptionPane.showConfirmDialog(rootPane, "Deseja marcar como pago?", "Sumptus - Confirmação de pagamento", JOptionPane.YES_NO_OPTION);
             switch (pay) {
                 case 0:
                     outlay.setPaid(true);
                     try {
                         outlayDAO.update(outlay);
-                        JOptionPane.showMessageDialog(areaMenu, "Registro atualizado");
+                        JOptionPane.showMessageDialog(rootPane, "Registro atualizado");
                     } catch (SQLException ex) {
-                        Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
                     }
                     break;
                 default:

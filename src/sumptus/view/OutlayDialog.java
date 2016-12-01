@@ -8,8 +8,6 @@ package sumptus.view;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import sumptus.dao.AreaDAO;
@@ -64,7 +62,6 @@ public class OutlayDialog extends javax.swing.JDialog {
             areas = areaDAO.findAll();
             areasComboBox.addItem("-");
             for (Area area : areas) {
-                //System.out.println(area.getName());
                 areasComboBox.addItem(area.getName());
             }
 
@@ -72,7 +69,6 @@ public class OutlayDialog extends javax.swing.JDialog {
             pforms = pformDAO.findAll();
             pformsComboBox.addItem("-");
             for (PayForm pform : pforms) {
-                //System.out.println(pform.getForm());
                 pformsComboBox.addItem(pform.getForm());
             }
             
@@ -80,7 +76,6 @@ public class OutlayDialog extends javax.swing.JDialog {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
     }
     
     private void editOutlay(){
@@ -230,27 +225,25 @@ public class OutlayDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void areasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_areasComboBoxActionPerformed
-        // TODO add your handling code here:
         JComboBox jb = (JComboBox) evt.getSource();
         String name = (String) jb.getSelectedItem();
         if (name != "-") {
             try {
                 area = areaDAO.findByName(name);
             } catch (SQLException ex) {
-                Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             }
         }
     }//GEN-LAST:event_areasComboBoxActionPerformed
 
     private void pformsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pformsComboBoxActionPerformed
-        // TODO add your handling code here:
         JComboBox jb = (JComboBox) evt.getSource();
         String name = (String) jb.getSelectedItem();
         if (name != "-") {
             try {
                 pform = pformDAO.findByName(name);
             } catch (SQLException ex) {
-                Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             }
         }
     }//GEN-LAST:event_pformsComboBoxActionPerformed
@@ -268,24 +261,22 @@ public class OutlayDialog extends javax.swing.JDialog {
             if(outlay.getId() == null){
                 try {
                     Integer id = outlayDAO.create(outlay);
-                    System.out.println(outlay.getArea().getName() + " " + outlay.getPform().getForm() + " " + outlay.getCost().toString());
-                    JOptionPane.showMessageDialog(rootPane, "Usuário criado" + id);
+                    JOptionPane.showMessageDialog(rootPane, "Registro criado! Id:" + id);
                     this.dispose();
                 } catch (SQLException ex) {
-                    Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
                 }
             } else {
-                System.out.println(outlay.getDescription());
                 try{
                     String saida = outlayDAO.update(outlay);
                     JOptionPane.showMessageDialog(rootPane, saida);
                     this.dispose();
                 }catch(SQLException ex){
-                    System.out.println(ex.getMessage());
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(areasComboBox, "Por favor, edite os dados necessários");
+            JOptionPane.showMessageDialog(rootPane, "Por favor, edite os dados necessários");
         }
 
     }//GEN-LAST:event_saveOutlayButtonActionPerformed

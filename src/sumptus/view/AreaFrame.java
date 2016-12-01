@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import sumptus.dao.AreaDAO;
 import sumptus.dao.DataBase;
 import sumptus.model.Area;
+import sumptus.model.User;
 
 /**
  *
@@ -27,6 +28,7 @@ public class AreaFrame extends javax.swing.JFrame {
     private List<Area> areas;
     private AreaTableModel areaTbModel;
     private Area area;
+    private User userLogged;
 
     /**
      * Creates new form AreaFrame
@@ -34,6 +36,12 @@ public class AreaFrame extends javax.swing.JFrame {
     public AreaFrame() {
         initComponents();
         findAreas();
+    }
+
+    public AreaFrame(User userLogged) {
+        initComponents();
+        findAreas();
+        this.userLogged = userLogged;
     }
 
     public void findAreas() {
@@ -218,46 +226,56 @@ public class AreaFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void areasTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_areasTableMouseClicked
-        // TODO add your handling code here:
-        if(evt.getClickCount() == 2){
+        if (evt.getClickCount() == 2 && userLogged.getAdmin() == true) {
             editArea();
-        } 
+        } else {
+            JOptionPane.showMessageDialog(null, "Desculpe, você não tem permissão para fazer isso.", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_areasTableMouseClicked
 
     private void deleteAreaMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteAreaMenuMouseClicked
-        // TODO add your handling code here:
-        deleteArea();
+        if (userLogged.getAdmin() == true) {
+            deleteArea();
+        } else {
+            JOptionPane.showMessageDialog(null, "Desculpe, você não tem permissão para fazer isso.", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_deleteAreaMenuMouseClicked
 
     private void newAreaMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newAreaMenuMouseClicked
-        String newArea = JOptionPane.showInputDialog(areaScrollPane,"Digite a nova área", "Sumptus - Nova Área", JOptionPane.INFORMATION_MESSAGE);
-        if(newArea != null){
-            if (!newArea.trim().isEmpty()) {
-                try {
-                    AreaDAO DAO = new AreaDAO(DataBase.connection());
-                    Area area = new Area();
-                    area.setName(newArea);
-                    DAO.create(area);
-                    JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sumptus - Informação", JOptionPane.INFORMATION_MESSAGE);
-                    findAreas();
-                } catch (SQLException ex) {
-                    Logger.getLogger(AreaFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "Erro ao gravar área", "Sumptus - Erro", JOptionPane.ERROR);
+        if (userLogged.getAdmin() == true) {
+            String newArea = JOptionPane.showInputDialog(areaScrollPane, "Digite a nova área", "Sumptus - Nova Área", JOptionPane.INFORMATION_MESSAGE);
+            if (newArea != null) {
+                if (!newArea.trim().isEmpty()) {
+                    try {
+                        AreaDAO DAO = new AreaDAO(DataBase.connection());
+                        Area area = new Area();
+                        area.setName(newArea);
+                        DAO.create(area);
+                        JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sumptus - Informação", JOptionPane.INFORMATION_MESSAGE);
+                        findAreas();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AreaFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Erro ao gravar área", "Sumptus - Erro", JOptionPane.ERROR);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor, preencha este campo", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+                    newAreaMenuMouseClicked(evt);
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Por favor, preencha este campo", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
-                newAreaMenuMouseClicked(evt);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Desculpe, você não tem permissão para fazer isso.", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_newAreaMenuMouseClicked
 
     private void editAreaMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editAreaMenuMouseClicked
-        // TODO add your handling code here:
-        editArea();
+        if(userLogged.getAdmin() == true){
+            editArea();
+        } else {
+            JOptionPane.showMessageDialog(null, "Desculpe, você não tem permissão para fazer isso.", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_editAreaMenuMouseClicked
 
     private void saveAreaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAreaButtonActionPerformed
-        // TODO add your handling code here:
         area.setId(Integer.parseInt(editIdArea.getText()));
         area.setName(editNameArea.getText());
         try {
@@ -273,24 +291,24 @@ public class AreaFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         editAreaDialog.dispose();
     }//GEN-LAST:event_cancelAreaButtonActionPerformed
-    
-    private void editArea(){
-        Integer areaSelec = areasTable.getSelectedRow();        
-        if(areaSelec == -1){
+
+    private void editArea() {
+        Integer areaSelec = areasTable.getSelectedRow();
+        if (areaSelec == -1) {
             JOptionPane.showMessageDialog(null, "Por favor, selecione uma área", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
-        }else {
+        } else {
             area = areas.get(areaSelec);
             editIdArea.setText(area.getId().toString());
-            editNameArea.setText(area.getName());            
+            editNameArea.setText(area.getName());
             editAreaDialog.setVisible(true);
         }
     }
-    
+
     private void deleteArea() {
-        Integer areaSelec = areasTable.getSelectedRow();        
-        if(areaSelec == -1){
+        Integer areaSelec = areasTable.getSelectedRow();
+        if (areaSelec == -1) {
             JOptionPane.showMessageDialog(null, "Por favor, selecione uma área", "Sumptus - Erro", JOptionPane.ERROR_MESSAGE);
-        }else {
+        } else {
             area = areas.get(areaSelec);
             int delete = JOptionPane.showConfirmDialog(rootPane, "Deletar \"" + area.getName() + "\"?", "Sumptus - Confirmação", JOptionPane.YES_NO_OPTION);
             System.out.println("Delete = " + delete);
