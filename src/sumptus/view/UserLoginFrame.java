@@ -10,6 +10,8 @@ import java.lang.NullPointerException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import sumptus.dao.DataBase;
@@ -43,6 +45,8 @@ public class UserLoginFrame extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível conectar ao banco de dados " + ex.getMessage());
         }
+        ImageIcon icon = new ImageIcon("img/logo.png");
+        labelTitle.setIcon(icon);
     }
 
     /**
@@ -104,7 +108,6 @@ public class UserLoginFrame extends javax.swing.JFrame {
         });
 
         labelTitle.setFont(new java.awt.Font("Ubuntu", 0, 48)); // NOI18N
-        labelTitle.setText("Sumptus");
 
         inputPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -114,9 +117,6 @@ public class UserLoginFrame extends javax.swing.JFrame {
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addGap(435, 435, 435)
-                        .addComponent(labelTitle))
                     .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(loginPanelLayout.createSequentialGroup()
                             .addGap(235, 235, 235)
@@ -132,15 +132,18 @@ public class UserLoginFrame extends javax.swing.JFrame {
                             .addComponent(newUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(loginPanelLayout.createSequentialGroup()
+                        .addGap(371, 371, 371)
+                        .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(247, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                .addContainerGap(191, Short.MAX_VALUE)
-                .addComponent(labelTitle)
-                .addGap(18, 18, 18)
+                .addContainerGap(76, Short.MAX_VALUE)
+                .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(newUserButton)
                 .addGap(64, 64, 64)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
