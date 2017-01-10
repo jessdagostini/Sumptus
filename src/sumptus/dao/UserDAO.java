@@ -88,28 +88,6 @@ public class UserDAO {
             System.out.println("Problemas para encontrar registro " + ex.getMessage());
         }        
         return user;
-    }
-    
-    public List<User> findAll() throws SQLException{
-        String sql = "SELECT * FROM users";
-        List<User> users = new ArrayList<>();
-        User user = null;
-        
-        try(PreparedStatement stm = con.prepareStatement(sql)){
-            stm.execute();
-            
-            try(ResultSet rs = stm.getResultSet()){
-                while(rs.next()){
-                    user = new User();
-                    user.setId(rs.getInt("id"));
-                    user.setName(rs.getString("name"));
-                    user.setLogin(rs.getString("login"));
-                    user.setAdmin(rs.getBoolean("admin"));
-                    users.add(user);
-                }
-            }
-        }
-        return users;
     }  
         
     public User findByLogin(String login) throws SQLException{

@@ -77,6 +77,9 @@ public class OutlayDAO {
                     outlay.setCost(resultSet.getBigDecimal("cost"));
                     outlay.setPurchase_date(resultSet.getDate("purchase_date"));
                     outlay.setPayment_day(resultSet.getDate("payment_day"));
+                    outlay.setTrue_value(resultSet.getBigDecimal("true_value"));
+                    outlay.setPercentage(resultSet.getDouble("percentage"));
+                    outlay.setTrue_payday(resultSet.getDate("true_payday"));
                 }
             }
         } catch (Exception ex){
@@ -86,38 +89,8 @@ public class OutlayDAO {
         return outlay;
     }
     
-    public List<Outlay> findAll() throws SQLException {
-        String sql = "SELECT * FROM outlays ORDER BY id ASC";
-        List<Outlay> outlays = new ArrayList<>();
-        Outlay outlay = null;
-        
-        try(PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.execute();
-
-            try(ResultSet resultSet = stm.getResultSet()) {
-                while(resultSet.next()) {
-                    outlay = new Outlay();
-                    outlay.setId(resultSet.getInt("id"));
-                    outlay.setArea(areaDAO.findById(resultSet.getInt("area_id")));
-                    outlay.setPform(pformDAO.findById(resultSet.getInt("payform_id")));
-                    outlay.setUser(userDAO.findById(resultSet.getInt("user_id")));
-                    outlay.setDescription(resultSet.getString("description"));
-                    outlay.setCost(resultSet.getBigDecimal("cost"));
-                    outlay.setPurchase_date(resultSet.getDate("purchase_date"));
-                    outlay.setPayment_day(resultSet.getDate("payment_day"));
-                    outlay.setPaid(resultSet.getBoolean("paid"));
-                    outlays.add(outlay);
-                }
-            }
-        } catch (Exception ex){
-            System.out.println("Não encontrou por ID " + ex.getMessage());
-        }
-
-        return outlays;
-    }
-    
     public List<Outlay> findByUser(Integer user_id) throws SQLException {
-        String sql = "SELECT * FROM outlays WHERE user_id = ? ORDER BY id ASC";
+        String sql = "SELECT * FROM outlays WHERE user_id = ? ORDER BY payment_day DESC";
         List<Outlay> outlays = new ArrayList<>();
         Outlay outlay = null;
         
@@ -137,6 +110,9 @@ public class OutlayDAO {
                     outlay.setPurchase_date(resultSet.getDate("purchase_date"));
                     outlay.setPayment_day(resultSet.getDate("payment_day"));
                     outlay.setPaid(resultSet.getBoolean("paid"));
+                    outlay.setTrue_value(resultSet.getBigDecimal("true_value"));
+                    outlay.setPercentage(resultSet.getDouble("percentage"));
+                    outlay.setTrue_payday(resultSet.getDate("true_payday"));
                     outlays.add(outlay);
                 }
             }
@@ -148,7 +124,7 @@ public class OutlayDAO {
     }
     
     public String update(Outlay outlay) throws SQLException{
-        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, cost = ?, purchase_date = ?, payment_day = ?, paid = ? WHERE id = ?";
+        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, cost = ?, purchase_date = ?, payment_day = ?, paid = ?, true_value = ?, percentage = ?, true_payday = ? WHERE id = ?";
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setInt(1, outlay.getArea().getId());
             stm.setInt(2, outlay.getPform().getId());
@@ -159,7 +135,11 @@ public class OutlayDAO {
             java.sql.Date dataPayment = new java.sql.Date(outlay.getPayment_day().getTime());
             stm.setDate(6, dataPayment);            
             stm.setBoolean(7, outlay.savePaid());
-            stm.setInt(8, outlay.getId());
+            stm.setBigDecimal(8, outlay.getTrue_value());
+            stm.setDouble(9, outlay.getPercentage());
+            java.sql.Date dataRealPay = new java.sql.Date(outlay.getTrue_payday().getTime());
+            stm.setDate(10, dataRealPay);
+            stm.setInt(11, outlay.getId());
             stm.execute();
             
             con.commit();

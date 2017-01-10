@@ -36,7 +36,7 @@ public class OutlayTableModel  extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 10;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -52,6 +52,9 @@ public class OutlayTableModel  extends AbstractTableModel{
             case 4: return dateFormat.format((Date) outlay.getPayment_day());
             case 5: return outlay.getCost();
             case 6: return outlay.getPaid();
+            case 7: if(outlay.getTrue_payday() != null){ return dateFormat.format((Date) outlay.getTrue_payday());} else { return outlay.getTrue_payday();}
+            case 8: return outlay.getTrue_value();
+            case 9: return String.format("%.2f", outlay.getPercentage()) + "%";
             default:
                 throw new AssertionError();
         }
@@ -64,10 +67,13 @@ public class OutlayTableModel  extends AbstractTableModel{
             case 0: return "Area";
             case 1: return "Forma de Pagamento";
             case 2: return "Descrição";
-            case 3: return "Data de Entrada";
-            case 4: return "Data de Pagamento";
+            case 3: return "Data da Compra";
+            case 4: return "Data de Vencimento";
             case 5: return "Valor (R$)";
             case 6: return "Pago?";
+            case 7: return "Data de Pagamento";
+            case 8: return "Valor pago";
+            case 9: return "Porcentagem";
             default:
                 throw new AssertionError();
         }

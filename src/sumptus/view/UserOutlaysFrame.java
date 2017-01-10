@@ -7,8 +7,10 @@ package sumptus.view;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JComboBox;
@@ -47,7 +49,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         initComponents();
         this.userLogged = userLogged;
         initOutlays();
-        Locale locale = new Locale("pt", "BR");
+        Locale locale = new Locale("pt", "BR");                            
         LocalDate today = LocalDate.now();
         String diaDaSemana = today.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
         String mes = today.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
@@ -256,9 +258,18 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         outlay = outlays.get(index);
         if (evt.getClickCount() == 2 && outlay.savePaid() == false) {
             Integer pay = JOptionPane.showConfirmDialog(rootPane, "Deseja marcar como pago?", "Sumptus - Confirmação de pagamento", JOptionPane.YES_NO_OPTION);
+            Date today = new Date(System.currentTimeMillis());
             switch (pay) {
                 case 0:
+                    String valor = JOptionPane.showInputDialog(rootPane, "Insira o valor real pago");
+                    BigDecimal trueValue = new BigDecimal(valor);
+                    Double payd = trueValue.doubleValue();
+                    Double ccost = outlay.getCost().doubleValue();
+                    Double percentage = payd*100/ccost-100;
+                    outlay.setTrue_value(trueValue);
+                    outlay.setPercentage(percentage);
                     outlay.setPaid(true);
+                    outlay.setTrue_payday(today);
                     try {
                         outlayDAO.update(outlay);
                         JOptionPane.showMessageDialog(rootPane, "Registro atualizado");

@@ -17,7 +17,10 @@ public class Outlay {
     private BigDecimal cost;
     private Date purchase_date;
     private Date payment_day;
-    private Boolean paid;
+    private Boolean paid;    
+    private BigDecimal true_value;
+    private Double percentage;   
+    private Date true_payday;    
 
     public Integer getId() {
         return id;
@@ -99,4 +102,27 @@ public class Outlay {
         this.paid = paid;
     }
     
+    public BigDecimal getTrue_value() {
+        return true_value;
+    }
+
+    public void setTrue_value(BigDecimal true_value) {
+        this.true_value = true_value;
+    }
+    
+    public Double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(Double percentage) {
+        this.percentage = percentage;
+    }
+    
+    public Date getTrue_payday() {
+        return true_payday;
+    }
+
+    public void setTrue_payday(Date true_payday) {
+        this.true_payday = true_payday;
+    }
 }

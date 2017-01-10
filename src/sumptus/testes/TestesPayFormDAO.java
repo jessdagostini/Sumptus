@@ -18,14 +18,14 @@ public class TestesPayFormDAO {
             PayForm payf = new PayForm();
             payf.setForm("Cartão Banrisul");
             
-            Integer id = payDAO.create(payf);
-            System.out.println("PayForm ID = " + id);
+            //Integer id = payDAO.create(payf);
+            //System.out.println("PayForm ID = " + id);
             //Integer id = 2;
-            PayForm payfo = payDAO.findById(id);
-            System.out.println("Forma = " + payfo.getForm());
-            payfo.setForm("Cartão");
-            String saida = payDAO.update(payfo);
-            System.out.println("Atualizou informação? " + saida);
+            //PayForm payfo = payDAO.findById(id);
+            //System.out.println("Forma = " + payfo.getForm());
+            //payfo.setForm("Cartão");
+            //String saida = payDAO.update(payfo);
+            //System.out.println("Atualizou informação? " + saida);
             
             //List<PayForm> pforms = payDAO.findByName("Cartão");
              /*for(PayForm pform : pforms){

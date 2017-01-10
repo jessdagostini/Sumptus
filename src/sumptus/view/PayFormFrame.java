@@ -213,8 +213,8 @@ public class PayFormFrame extends javax.swing.JFrame {
                     try {
                         PayForm pform = new PayForm();
                         pform.setForm(newPform);
-                        pformDAO.create(pform);
-                        JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sumptus - Informação", JOptionPane.INFORMATION_MESSAGE);
+                        String saida = pformDAO.create(pform);
+                        JOptionPane.showMessageDialog(null, saida, "Sumptus - Informação", JOptionPane.INFORMATION_MESSAGE);
                         findPforms();
                     } catch (SQLException ex) {
                         Logger.getLogger(AreaFrame.class.getName()).log(Level.SEVERE, null, ex);

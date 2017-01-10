@@ -21,7 +21,7 @@ public class PayFormDAO {
         this.con = con;
     }
     
-    public Integer create(PayForm form) throws SQLException{
+    public String create(PayForm form) throws SQLException{
         String sql = "INSERT INTO payforms(form) VALUES(?)";
         Integer id = 0;
         
@@ -34,12 +34,11 @@ public class PayFormDAO {
                 while(rs.next()){
                     id = rs.getInt(1);
                 }
-                return id;
+                return "Registro criado!";
             }
         } catch(Exception ex){
-            System.out.println("Problemas ao criar o usuário " + ex.getMessage());
             con.rollback();
-            return 0;
+            return("Problemas ao criar o forma de pagamento " + ex.getMessage());            
         }
     }
     
