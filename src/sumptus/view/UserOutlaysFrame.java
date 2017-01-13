@@ -271,7 +271,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
                     outlay.setPaid(true);
                     outlay.setTrue_payday(today);
                     try {
-                        outlayDAO.update(outlay);
+                        outlayDAO.updatePaid(outlay);
                         JOptionPane.showMessageDialog(rootPane, "Registro atualizado");
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(rootPane, ex.getMessage());

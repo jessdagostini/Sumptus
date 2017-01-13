@@ -124,7 +124,7 @@ public class OutlayDAO {
     }
     
     public String update(Outlay outlay) throws SQLException{
-        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, cost = ?, purchase_date = ?, payment_day = ?, paid = ?, true_value = ?, percentage = ?, true_payday = ? WHERE id = ?";
+        String sql = "UPDATE outlays SET area_id = ?, payform_id = ?, description = ?, cost = ?, purchase_date = ?, payment_day = ? WHERE id = ?";
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setInt(1, outlay.getArea().getId());
             stm.setInt(2, outlay.getPform().getId());
@@ -133,13 +133,27 @@ public class OutlayDAO {
             java.sql.Date dataPurchase = new java.sql.Date(outlay.getPurchase_date().getTime());
             stm.setDate(5, dataPurchase);
             java.sql.Date dataPayment = new java.sql.Date(outlay.getPayment_day().getTime());
-            stm.setDate(6, dataPayment);            
-            stm.setBoolean(7, outlay.savePaid());
-            stm.setBigDecimal(8, outlay.getTrue_value());
-            stm.setDouble(9, outlay.getPercentage());
+            stm.setDate(6, dataPayment);
+            stm.setInt(7, outlay.getId());
+            stm.execute();
+            
+            con.commit();
+            return "Dado atualizado com sucesso!";
+        } catch (Exception ex){
+            con.rollback();
+            return("Erro ao atualizar = " + ex.getMessage());
+        }
+    }
+    
+    public String updatePaid(Outlay outlay) throws SQLException{
+            String sql = "UPDATE outlays SET paid = ?, true_value = ?, percentage = ?, true_payday = ? WHERE id = ?";
+        try(PreparedStatement stm = con.prepareStatement(sql)){            
+            stm.setBoolean(1, outlay.savePaid());
+            stm.setBigDecimal(2, outlay.getTrue_value());
+            stm.setDouble(3, outlay.getPercentage());
             java.sql.Date dataRealPay = new java.sql.Date(outlay.getTrue_payday().getTime());
-            stm.setDate(10, dataRealPay);
-            stm.setInt(11, outlay.getId());
+            stm.setDate(4, dataRealPay);
+            stm.setInt(5, outlay.getId());
             stm.execute();
             
             con.commit();
