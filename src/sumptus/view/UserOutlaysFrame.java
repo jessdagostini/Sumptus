@@ -13,6 +13,8 @@ import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import sumptus.dao.AreaDAO;
@@ -88,6 +90,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         outlayMenu = new javax.swing.JMenu();
         addOutlayMenuItem = new javax.swing.JMenuItem();
         editOutlayMenuItem = new javax.swing.JMenuItem();
+        deleteOutlayMenuItem = new javax.swing.JMenuItem();
         areaMenu = new javax.swing.JMenu();
         listAllAreasMenuItem = new javax.swing.JMenuItem();
         pformMenu = new javax.swing.JMenu();
@@ -162,6 +165,14 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
             }
         });
         outlayMenu.add(editOutlayMenuItem);
+
+        deleteOutlayMenuItem.setText("Deletar");
+        deleteOutlayMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteOutlayMenuItemActionPerformed(evt);
+            }
+        });
+        outlayMenu.add(deleteOutlayMenuItem);
 
         menuBar.add(outlayMenu);
 
@@ -283,6 +294,24 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_outlaysTableMouseClicked
 
+    private void deleteOutlayMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOutlayMenuItemActionPerformed
+        // TODO add your handling code here:
+        Integer index = outlaysTable.getSelectedRow();
+        if(index != -1){
+            outlay = outlays.get(index);
+            Integer confirm = JOptionPane.showConfirmDialog(areaMenu, "Deseja excluir " + outlay.getDescription() + "?");
+            if(confirm == 0){
+                try {
+                    outlayDAO.delete(outlay.getId());
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserOutlaysFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Por favor, selecione um registro.");
+        }
+    }//GEN-LAST:event_deleteOutlayMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -322,6 +351,7 @@ public class UserOutlaysFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addOutlayMenuItem;
     private javax.swing.JMenu areaMenu;
+    private javax.swing.JMenuItem deleteOutlayMenuItem;
     private javax.swing.JMenuItem editOutlayMenuItem;
     private javax.swing.JMenuItem editUserMenuItem;
     private javax.swing.JMenuItem listAllAreasMenuItem;

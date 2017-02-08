@@ -140,11 +140,9 @@ public class OutlayDialog extends javax.swing.JDialog {
 
         costLabel.setText("Valor");
 
-        inputCost.setText("0.00");
-
         purchaseLabel.setText("Data da Compra");
 
-        paymentLabel.setText("Data de Pagamento");
+        paymentLabel.setText("Data de Vencimento");
 
         saveOutlayButton.setText("Salvar");
         saveOutlayButton.addActionListener(new java.awt.event.ActionListener() {
